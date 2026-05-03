@@ -1,0 +1,42 @@
+@model IEnumerable<WebApplication1.Models.Herramienta>
+@{
+    ViewData["Title"] = "Ferreteria";
+}
+
+<div class="text-center">
+    <h2>Bienvenido a Ferreteria "el Bulón Loco"</h2>
+    <h3>Lista de productos</h3>
+</div>
+
+<p>
+    <a asp-action="Create" class="btn btn-primary">Agregar Nueva Herramienta</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Nombre</th>
+            <th>Precio</th>
+            <th>Imagen</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Descripcion)
+            </td>
+            <td>
+                $ @Html.DisplayFor(modelItem => item.Precio)
+            </td>
+            <td>
+                <img src="~/images/@item.Imagen" alt="@item.Descripcion" style="max-height: 100px; max-width: 100px;" />
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-secondary">Editar</a>
+                <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger" onclick="return confirm('Estas seguro de eliminar esto?');">Eliminar</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
