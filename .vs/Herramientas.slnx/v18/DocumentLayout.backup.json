@@ -3,20 +3,40 @@
   "WorkspaceRootPath": "C:\\Users\\martb\\source\\repos\\TPinvestigacion\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{A7633DFC-18D9-40BD-880F-7969B4317B01}|WebApplication1\\WebApplication1.csproj|c:\\users\\martb\\source\\repos\\tpinvestigacion\\webapplication1\\controllers\\homecontroller1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A7633DFC-18D9-40BD-880F-7969B4317B01}|WebApplication1\\WebApplication1.csproj|solutionrelative:webapplication1\\controllers\\homecontroller1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A7633DFC-18D9-40BD-880F-7969B4317B01}|WebApplication1\\WebApplication1.csproj|c:\\users\\martb\\source\\repos\\tpinvestigacion\\webapplication1\\wwwroot\\css\\site.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
-      "RelativeMoniker": "D:0:0:{A7633DFC-18D9-40BD-880F-7969B4317B01}|WebApplication1\\WebApplication1.csproj|solutionrelative:webapplication1\\wwwroot\\css\\site.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
+      "AbsoluteMoniker": "D:0:0:{A7633DFC-18D9-40BD-880F-7969B4317B01}|WebApplication1\\WebApplication1.csproj|c:\\users\\martb\\source\\repos\\tpinvestigacion\\webapplication1\\views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{A7633DFC-18D9-40BD-880F-7969B4317B01}|WebApplication1\\WebApplication1.csproj|solutionrelative:webapplication1\\views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{A7633DFC-18D9-40BD-880F-7969B4317B01}|WebApplication1\\WebApplication1.csproj|c:\\users\\martb\\source\\repos\\tpinvestigacion\\webapplication1\\views\\home\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
       "RelativeMoniker": "D:0:0:{A7633DFC-18D9-40BD-880F-7969B4317B01}|WebApplication1\\WebApplication1.csproj|solutionrelative:webapplication1\\views\\home\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A7633DFC-18D9-40BD-880F-7969B4317B01}|WebApplication1\\WebApplication1.csproj|c:\\users\\martb\\source\\repos\\tpinvestigacion\\webapplication1\\views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{A7633DFC-18D9-40BD-880F-7969B4317B01}|WebApplication1\\WebApplication1.csproj|solutionrelative:webapplication1\\views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+      "AbsoluteMoniker": "D:0:0:{A7633DFC-18D9-40BD-880F-7969B4317B01}|WebApplication1\\WebApplication1.csproj|c:\\users\\martb\\source\\repos\\tpinvestigacion\\webapplication1\\controllers\\cuentacontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A7633DFC-18D9-40BD-880F-7969B4317B01}|WebApplication1\\WebApplication1.csproj|solutionrelative:webapplication1\\controllers\\cuentacontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A7633DFC-18D9-40BD-880F-7969B4317B01}|WebApplication1\\WebApplication1.csproj|c:\\users\\martb\\source\\repos\\tpinvestigacion\\webapplication1\\models\\logconexion.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A7633DFC-18D9-40BD-880F-7969B4317B01}|WebApplication1\\WebApplication1.csproj|solutionrelative:webapplication1\\models\\logconexion.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A7633DFC-18D9-40BD-880F-7969B4317B01}|WebApplication1\\WebApplication1.csproj|c:\\users\\martb\\source\\repos\\tpinvestigacion\\webapplication1\\views\\cuenta\\registro.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{A7633DFC-18D9-40BD-880F-7969B4317B01}|WebApplication1\\WebApplication1.csproj|solutionrelative:webapplication1\\views\\cuenta\\registro.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A7633DFC-18D9-40BD-880F-7969B4317B01}|WebApplication1\\WebApplication1.csproj|c:\\users\\martb\\source\\repos\\tpinvestigacion\\webapplication1\\views\\cuenta\\login.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{A7633DFC-18D9-40BD-880F-7969B4317B01}|WebApplication1\\WebApplication1.csproj|solutionrelative:webapplication1\\views\\cuenta\\login.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A7633DFC-18D9-40BD-880F-7969B4317B01}|WebApplication1\\WebApplication1.csproj|c:\\users\\martb\\source\\repos\\tpinvestigacion\\webapplication1\\models\\viewmodels\\registroviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A7633DFC-18D9-40BD-880F-7969B4317B01}|WebApplication1\\WebApplication1.csproj|solutionrelative:webapplication1\\models\\viewmodels\\registroviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A7633DFC-18D9-40BD-880F-7969B4317B01}|WebApplication1\\WebApplication1.csproj|c:\\users\\martb\\source\\repos\\tpinvestigacion\\webapplication1\\models\\viewmodels\\loginviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A7633DFC-18D9-40BD-880F-7969B4317B01}|WebApplication1\\WebApplication1.csproj|solutionrelative:webapplication1\\models\\viewmodels\\loginviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A7633DFC-18D9-40BD-880F-7969B4317B01}|WebApplication1\\WebApplication1.csproj|c:\\users\\martb\\source\\repos\\tpinvestigacion\\webapplication1\\wwwroot\\css\\site.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
+      "RelativeMoniker": "D:0:0:{A7633DFC-18D9-40BD-880F-7969B4317B01}|WebApplication1\\WebApplication1.csproj|solutionrelative:webapplication1\\wwwroot\\css\\site.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{A7633DFC-18D9-40BD-880F-7969B4317B01}|WebApplication1\\WebApplication1.csproj|c:\\users\\martb\\source\\repos\\tpinvestigacion\\webapplication1\\views\\shared\\error.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
@@ -54,24 +74,89 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 10,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "HomeController1.cs",
-              "DocumentMoniker": "C:\\Users\\martb\\source\\repos\\TPinvestigacion\\WebApplication1\\Controllers\\HomeController1.cs",
-              "RelativeDocumentMoniker": "WebApplication1\\Controllers\\HomeController1.cs",
-              "ToolTip": "C:\\Users\\martb\\source\\repos\\TPinvestigacion\\WebApplication1\\Controllers\\HomeController1.cs",
-              "RelativeToolTip": "WebApplication1\\Controllers\\HomeController1.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAJAAAAAAAAAA==",
+              "DocumentIndex": 3,
+              "Title": "LogConexion.cs",
+              "DocumentMoniker": "C:\\Users\\martb\\source\\repos\\TPinvestigacion\\WebApplication1\\Models\\LogConexion.cs",
+              "RelativeDocumentMoniker": "WebApplication1\\Models\\LogConexion.cs",
+              "ToolTip": "C:\\Users\\martb\\source\\repos\\TPinvestigacion\\WebApplication1\\Models\\LogConexion.cs",
+              "RelativeToolTip": "WebApplication1\\Models\\LogConexion.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAArAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-06-19T03:47:56.554Z",
+              "WhenOpened": "2026-06-19T04:21:09.976Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 6,
+              "Title": "RegistroViewModel.cs",
+              "DocumentMoniker": "C:\\Users\\martb\\source\\repos\\TPinvestigacion\\WebApplication1\\Models\\ViewModels\\RegistroViewModel.cs",
+              "RelativeDocumentMoniker": "WebApplication1\\Models\\ViewModels\\RegistroViewModel.cs",
+              "ToolTip": "C:\\Users\\martb\\source\\repos\\TPinvestigacion\\WebApplication1\\Models\\ViewModels\\RegistroViewModel.cs",
+              "RelativeToolTip": "WebApplication1\\Models\\ViewModels\\RegistroViewModel.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAARAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-19T04:14:33.574Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "LoginViewModel.cs",
+              "DocumentMoniker": "C:\\Users\\martb\\source\\repos\\TPinvestigacion\\WebApplication1\\Models\\ViewModels\\LoginViewModel.cs",
+              "RelativeDocumentMoniker": "WebApplication1\\Models\\ViewModels\\LoginViewModel.cs",
+              "ToolTip": "C:\\Users\\martb\\source\\repos\\TPinvestigacion\\WebApplication1\\Models\\ViewModels\\LoginViewModel.cs",
+              "RelativeToolTip": "WebApplication1\\Models\\ViewModels\\LoginViewModel.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-19T04:11:57.503Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "CuentaController.cs",
+              "DocumentMoniker": "C:\\Users\\martb\\source\\repos\\TPinvestigacion\\WebApplication1\\Controllers\\CuentaController.cs",
+              "RelativeDocumentMoniker": "WebApplication1\\Controllers\\CuentaController.cs",
+              "ToolTip": "C:\\Users\\martb\\source\\repos\\TPinvestigacion\\WebApplication1\\Controllers\\CuentaController.cs",
+              "RelativeToolTip": "WebApplication1\\Controllers\\CuentaController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-19T04:08:52.017Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "Registro.cshtml",
+              "DocumentMoniker": "C:\\Users\\martb\\source\\repos\\TPinvestigacion\\WebApplication1\\Views\\Cuenta\\Registro.cshtml",
+              "RelativeDocumentMoniker": "WebApplication1\\Views\\Cuenta\\Registro.cshtml",
+              "ToolTip": "C:\\Users\\martb\\source\\repos\\TPinvestigacion\\WebApplication1\\Views\\Cuenta\\Registro.cshtml",
+              "RelativeToolTip": "WebApplication1\\Views\\Cuenta\\Registro.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAEAAAAHAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-06-19T04:04:55.98Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "Login.cshtml",
+              "DocumentMoniker": "C:\\Users\\martb\\source\\repos\\TPinvestigacion\\WebApplication1\\Views\\Cuenta\\Login.cshtml",
+              "RelativeDocumentMoniker": "WebApplication1\\Views\\Cuenta\\Login.cshtml",
+              "ToolTip": "C:\\Users\\martb\\source\\repos\\TPinvestigacion\\WebApplication1\\Views\\Cuenta\\Login.cshtml",
+              "RelativeToolTip": "WebApplication1\\Views\\Cuenta\\Login.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAEAAAAHAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-06-19T04:04:29.921Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
               "Title": "site.css",
               "DocumentMoniker": "C:\\Users\\martb\\source\\repos\\TPinvestigacion\\WebApplication1\\wwwroot\\css\\site.css",
               "RelativeDocumentMoniker": "WebApplication1\\wwwroot\\css\\site.css",
@@ -84,7 +169,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 9,
               "Title": "Error.cshtml",
               "DocumentMoniker": "C:\\Users\\martb\\source\\repos\\TPinvestigacion\\WebApplication1\\Views\\Shared\\Error.cshtml",
               "RelativeDocumentMoniker": "WebApplication1\\Views\\Shared\\Error.cshtml",
@@ -97,20 +182,20 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 1,
               "Title": "Index.cshtml",
               "DocumentMoniker": "C:\\Users\\martb\\source\\repos\\TPinvestigacion\\WebApplication1\\Views\\Home\\Index.cshtml",
               "RelativeDocumentMoniker": "WebApplication1\\Views\\Home\\Index.cshtml",
               "ToolTip": "C:\\Users\\martb\\source\\repos\\TPinvestigacion\\WebApplication1\\Views\\Home\\Index.cshtml",
               "RelativeToolTip": "WebApplication1\\Views\\Home\\Index.cshtml",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAABPAAAAAAAAAA==",
+              "ViewState": "AgIAAGEAAAAAAAAAAAAgwGcAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
               "WhenOpened": "2026-06-19T03:36:49.954Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 10,
               "Title": "Program.cs",
               "DocumentMoniker": "C:\\Users\\martb\\source\\repos\\TPinvestigacion\\Entidad\\Program.cs",
               "RelativeDocumentMoniker": "Entidad\\Program.cs",
@@ -123,20 +208,20 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 0,
               "Title": "_Layout.cshtml",
               "DocumentMoniker": "C:\\Users\\martb\\source\\repos\\TPinvestigacion\\WebApplication1\\Views\\Shared\\_Layout.cshtml",
               "RelativeDocumentMoniker": "WebApplication1\\Views\\Shared\\_Layout.cshtml",
               "ToolTip": "C:\\Users\\martb\\source\\repos\\TPinvestigacion\\WebApplication1\\Views\\Shared\\_Layout.cshtml",
               "RelativeToolTip": "WebApplication1\\Views\\Shared\\_Layout.cshtml",
-              "ViewState": "AgIAABwAAAAAAAAAAADwvycAAAAfAAAAAAAAAA==",
+              "ViewState": "AgIAABgAAAAAAAAAAAAqwCUAAAAhAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
               "WhenOpened": "2026-04-23T00:24:35.225Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 15,
               "Title": "Edit.cshtml",
               "DocumentMoniker": "C:\\Users\\martb\\source\\repos\\TPinvestigacion\\WebApplication1\\Views\\Herramientas\\Edit.cshtml",
               "RelativeDocumentMoniker": "WebApplication1\\Views\\Herramientas\\Edit.cshtml",
@@ -148,7 +233,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 14,
               "Title": "Create.cshtml",
               "DocumentMoniker": "C:\\Users\\martb\\source\\repos\\TPinvestigacion\\WebApplication1\\Views\\Herramientas\\Create.cshtml",
               "RelativeDocumentMoniker": "WebApplication1\\Views\\Herramientas\\Create.cshtml",
@@ -160,7 +245,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 11,
               "Title": "Index.cshtml",
               "DocumentMoniker": "C:\\Users\\martb\\source\\repos\\TPinvestigacion\\WebApplication1\\Views\\Herramientas\\Index.cshtml",
               "RelativeDocumentMoniker": "WebApplication1\\Views\\Herramientas\\Index.cshtml",
@@ -172,7 +257,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 12,
               "Title": "HerramientasController.cs",
               "DocumentMoniker": "C:\\Users\\martb\\source\\repos\\TPinvestigacion\\WebApplication1\\Controllers\\HerramientasController.cs",
               "RelativeDocumentMoniker": "WebApplication1\\Controllers\\HerramientasController.cs",
@@ -184,7 +269,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 13,
               "Title": "Herramienta.cs",
               "DocumentMoniker": "C:\\Users\\martb\\source\\repos\\TPinvestigacion\\WebApplication1\\Models\\Herramienta.cs",
               "RelativeDocumentMoniker": "WebApplication1\\Models\\Herramienta.cs",

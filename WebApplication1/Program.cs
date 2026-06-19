@@ -1,7 +1,22 @@
+using Microsoft.AspNetCore.Authentication.Cookies;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+// Autenticación basada en cookies (login propio, sin Identity)
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+    .AddCookie(options =>
+    {
+        options.LoginPath = "/Cuenta/Login";
+        options.AccessDeniedPath = "/Cuenta/AccesoDenegado";
+        options.ExpireTimeSpan = TimeSpan.FromDays(7);
+        options.SlidingExpiration = true;
+        options.Cookie.Name = "ChatRealTime.Auth";
+    });
+
+builder.Services.AddAuthorization();
 
 var app = builder.Build();
 
