@@ -21,3 +21,6 @@ Thumbs.db
 # Configuración local
 appsettings.Local.json
 appsettings.*.Local.json
+
+WebApplication1/bin/
+WebApplication1/obj/
