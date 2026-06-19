@@ -1,8 +1,86 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Inicio";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+<!-- HERO -->
+<section class="hero-section text-white text-center d-flex align-items-center justify-content-center">
+    <div class="hero-overlay"></div>
+    <div class="container position-relative py-5">
+        <i class="bi bi-broadcast display-1 mb-3"></i>
+        <h1 class="display-4 fw-bold">Comunicación en Tiempo Real con SignalR</h1>
+        <p class="lead col-lg-8 mx-auto">
+            Chateá en vivo con otros usuarios, sin recargar la página. Un proyecto académico
+            de ASP.NET Core MVC que explora las capacidades de SignalR para construir
+            aplicaciones web interactivas y en tiempo real.
+        </p>
+    </div>
+</section>
+
+<!-- SECCIÓN INFO -->
+<section class="container py-5">
+    <div class="row text-center g-4">
+        <div class="col-md-4">
+            <i class="bi bi-lightning-charge-fill fs-1 text-primary"></i>
+            <h5 class="mt-2">Tiempo real</h5>
+            <p class="text-muted">Los mensajes se entregan al instante usando WebSockets vía SignalR.</p>
+        </div>
+        <div class="col-md-4">
+            <i class="bi bi-people-fill fs-1 text-primary"></i>
+            <h5 class="mt-2">Salas de chat</h5>
+            <p class="text-muted">Distintos canales para organizar las conversaciones por tema.</p>
+        </div>
+        <div class="col-md-4">
+            <i class="bi bi-shield-lock-fill fs-1 text-primary"></i>
+            <h5 class="mt-2">Acceso seguro</h5>
+            <p class="text-muted">Login propio con contraseñas hasheadas, sin compartir datos sensibles.</p>
+        </div>
+    </div>
+</section>
+
+<!-- TABLA -->
+<section class="container pb-5">
+    <div class="card shadow-sm">
+        <div class="card-header bg-white d-flex justify-content-between align-items-center">
+            <h5 class="mb-0"><i class="bi bi-table"></i> Actividad reciente</h5>
+            <span class="badge bg-secondary">Tiempo Real</span>
+        </div>
+        <div class="card-body">
+            <p class="text-muted small mb-3">
+                Esta sección mostrará en el futuro un registro en vivo de conexiones y mensajes
+                (actualmente es un placeholder estático).
+            </p>
+            <div class="table-responsive">
+                <table class="table table-hover align-middle">
+                    <thead class="table-light">
+                        <tr>
+                            <th>Usuario</th>
+                            <th>Evento</th>
+                            <th>Sala</th>
+                            <th>Fecha</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="placeholder-glow">
+                            <td><span class="placeholder col-6"></span></td>
+                            <td><span class="placeholder col-8"></span></td>
+                            <td><span class="placeholder col-5"></span></td>
+                            <td><span class="placeholder col-7"></span></td>
+                        </tr>
+                        <tr class="placeholder-glow">
+                            <td><span class="placeholder col-7"></span></td>
+                            <td><span class="placeholder col-6"></span></td>
+                            <td><span class="placeholder col-4"></span></td>
+                            <td><span class="placeholder col-6"></span></td>
+                        </tr>
+                        <tr class="placeholder-glow">
+                            <td><span class="placeholder col-5"></span></td>
+                            <td><span class="placeholder col-7"></span></td>
+                            <td><span class="placeholder col-6"></span></td>
+                            <td><span class="placeholder col-8"></span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</section>

@@ -1,31 +1,30 @@
-html {
-  font-size: 14px;
+/* Hero section */
+.hero-section {
+    position: relative;
+    min-height: 60vh;
+    background-image: linear-gradient(rgba(13, 17, 23, 0.65), rgba(13, 17, 23, 0.65)), url('/img/hero-signalr.avif');
+    background-size: cover;
+    background-position: center;
 }
 
-@media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
+.hero-overlay {
+    position: absolute;
+    inset: 0;
 }
 
-.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+.hero-section .container {
+    z-index: 2;
 }
 
-html {
-  position: relative;
-  min-height: 100%;
-}
-
+/* Footer siempre al fondo gracias a flexbox en body (ver _Layout.cshtml) */
 body {
-  margin-bottom: 60px;
+    background-color: #f5f7fa;
 }
 
-.form-floating > .form-control-plaintext::placeholder, .form-floating > .form-control::placeholder {
-  color: var(--bs-secondary-color);
-  text-align: end;
+.card {
+    border: none;
 }
 
-.form-floating > .form-control-plaintext:focus::placeholder, .form-floating > .form-control:focus::placeholder {
-  text-align: start;
+.navbar-brand i {
+    margin-right: 4px;
 }
