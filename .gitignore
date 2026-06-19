@@ -1,0 +1,23 @@
+## .NET / Visual Studio
+
+# Carpeta de configuración interna de Visual Studio
+.vs/
+
+# Carpetas de compilación de TODOS los proyectos (WebApplication1, Entidad, etc.)
+[Bb]in/
+[Oo]bj/
+
+# Archivos de usuario
+*.user
+*.suo
+
+# Logs
+*.log
+
+# SO
+.DS_Store
+Thumbs.db
+
+# Configuración local
+appsettings.Local.json
+appsettings.*.Local.json

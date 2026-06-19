@@ -8,23 +8,23 @@
     "net10.0": []
   },
   "packageFolders": {
-    "C:\\Users\\franc\\.nuget\\packages\\": {},
+    "C:\\Users\\martb\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "E:\\reposVisualStudio\\Herramientas\\Entidad\\Entidad.csproj",
+      "projectUniqueName": "C:\\Users\\martb\\source\\repos\\TPinvestigacion\\Entidad\\Entidad.csproj",
       "projectName": "Entidad",
-      "projectPath": "E:\\reposVisualStudio\\Herramientas\\Entidad\\Entidad.csproj",
-      "packagesPath": "C:\\Users\\franc\\.nuget\\packages\\",
-      "outputPath": "E:\\reposVisualStudio\\Herramientas\\Entidad\\obj\\",
+      "projectPath": "C:\\Users\\martb\\source\\repos\\TPinvestigacion\\Entidad\\Entidad.csproj",
+      "packagesPath": "C:\\Users\\martb\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\martb\\source\\repos\\TPinvestigacion\\Entidad\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\franc\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\martb\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
@@ -74,7 +74,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.202/PortableRuntimeIdentifierGraph.json",
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.203/PortableRuntimeIdentifierGraph.json",
         "packagesToPrune": {
           "Microsoft.CSharp": "(,4.7.32767]",
           "Microsoft.VisualBasic": "(,10.4.32767]",
