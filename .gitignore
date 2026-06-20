@@ -1,23 +1,23 @@
-## .NET / Visual Studio
+## .NET / Visual Studio - ignorar todo lo generado automáticamente
 
 # Carpeta de configuración interna de Visual Studio
 .vs/
 
-# Carpetas de compilación de TODOS los proyectos (WebApplication1, Entidad, etc.)
+# Carpetas de compilación de TODOS los proyectos
 [Bb]in/
 [Oo]bj/
 
-# Archivos de usuario
+# Archivos de usuario (configuración local, no se comparte)
 *.user
 *.suo
+
+# Connection strings locales de cada integrante (NO subir, tienen contraseñas)
+appsettings.Development.json
+appsettings.*.Local.json
 
 # Logs
 *.log
 
-# SO
+# Sistema operativo
 .DS_Store
 Thumbs.db
-
-# Configuración local
-appsettings.Local.json
-appsettings.*.Local.json

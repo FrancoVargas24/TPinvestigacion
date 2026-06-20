@@ -1,11 +1,19 @@
+using Entidades;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+// services SIEMPRE antes de Build
 builder.Services.AddControllersWithViews();
 
-// Autenticación basada en cookies (login propio, sin Identity)
+builder.Services.AddDbContext<MusicTradeDbContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+// Servicio de hashing de contraseñas (login propio, sin Identity)
+builder.Services.AddScoped<PasswordService>();
+
+// Autenticación basada en cookies
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
     .AddCookie(options =>
     {
@@ -13,24 +21,32 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
         options.AccessDeniedPath = "/Cuenta/AccesoDenegado";
         options.ExpireTimeSpan = TimeSpan.FromDays(7);
         options.SlidingExpiration = true;
-        options.Cookie.Name = "ChatRealTime.Auth";
+        options.Cookie.Name = "MusicTrade.Auth";
     });
 
 builder.Services.AddAuthorization();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+// Migrar la base al arrancar, usando el DbContext ya configurado por DI
+// (con el connection string que vino de appsettings.json, no hardcodeado)
+using (var scope = app.Services.CreateScope())
+{
+    var db = scope.ServiceProvider.GetRequiredService<MusicTradeDbContext>();
+    db.Database.Migrate();
+}
+
+// pipeline
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
 
 app.UseHttpsRedirection();
 app.UseRouting();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapStaticAssets();
@@ -39,6 +55,5 @@ app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}")
     .WithStaticAssets();
-
 
 app.Run();

@@ -1,4 +1,4 @@
-﻿@using WebApplication1.Models.ViewModels
+@using WebApplication1.Models.ViewModels
 @model LoginViewModel
 @{
     ViewData["Title"] = "Iniciar sesión";
@@ -18,9 +18,9 @@
 
                     <form asp-controller="Cuenta" asp-action="Login" method="post">
                         <div class="mb-3">
-                            <label asp-for="UsuarioOEmail" class="form-label"></label>
-                            <input asp-for="UsuarioOEmail" class="form-control" placeholder="Usuario o email" autofocus />
-                            <span asp-validation-for="UsuarioOEmail" class="text-danger small"></span>
+                            <label asp-for="Email" class="form-label"></label>
+                            <input asp-for="Email" class="form-control" placeholder="tu@email.com" autofocus />
+                            <span asp-validation-for="Email" class="text-danger small"></span>
                         </div>
                         <div class="mb-3">
                             <label asp-for="Password" class="form-label"></label>

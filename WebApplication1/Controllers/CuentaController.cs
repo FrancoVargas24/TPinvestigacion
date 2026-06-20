@@ -1,18 +1,24 @@
-﻿using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
+using Entidades;
+using WebApplication1.Models.ViewModels;
 
 namespace WebApplication1.Controllers
 {
     public class CuentaController : Controller
     {
-        private readonly ApplicationDbContext _context;
+        private readonly MusicTradeDbContext _context;
         private readonly PasswordService _passwordService;
 
-        public CuentaController(ApplicationDbContext context, PasswordService passwordService)
+        // Provincia por defecto hasta que se agregue el selector en el formulario de registro.
+        // Buenos Aires (Id = 1) ya viene cargada por el seed de ProvinciasSeed.
+        private const int ProvinciaPorDefectoId = 1;
+
+        public CuentaController(MusicTradeDbContext context, PasswordService passwordService)
         {
             _context = context;
             _passwordService = passwordService;
@@ -35,35 +41,24 @@ namespace WebApplication1.Controllers
                 return View(modelo);
             }
 
-            // Verificar que no exista ya el usuario o el email
-            bool existeUsuario = await _context.Usuarios
-                .AnyAsync(u => u.NombreUsuario == modelo.NombreUsuario);
-
-            if (existeUsuario)
-            {
-                ModelState.AddModelError(nameof(modelo.NombreUsuario), "Ese nombre de usuario ya está en uso");
-            }
-
             bool existeEmail = await _context.Usuarios
                 .AnyAsync(u => u.Email == modelo.Email);
 
             if (existeEmail)
             {
                 ModelState.AddModelError(nameof(modelo.Email), "Ese email ya está registrado");
-            }
-
-            if (!ModelState.IsValid)
-            {
                 return View(modelo);
             }
 
             var nuevoUsuario = new Usuario
             {
-                NombreUsuario = modelo.NombreUsuario!,
+                Nombre = modelo.Nombre!,
+                Apellido = modelo.Apellido!,
+                Telefono = modelo.Telefono ?? string.Empty,
+                Dni = modelo.Dni ?? string.Empty,
                 Email = modelo.Email!,
-                PasswordHash = _passwordService.HashPassword(modelo.Password!),
-                FechaRegistro = DateTime.Now,
-                Activo = true
+                Password = _passwordService.HashPassword(modelo.Password!),
+                ProvinciaId = ProvinciaPorDefectoId
             };
 
             _context.Usuarios.Add(nuevoUsuario);
@@ -90,26 +85,18 @@ namespace WebApplication1.Controllers
                 return View(modelo);
             }
 
-            var usuario = await _context.Usuarios.FirstOrDefaultAsync(u =>
-                u.NombreUsuario == modelo.UsuarioOEmail || u.Email == modelo.UsuarioOEmail);
+            var usuario = await _context.Usuarios.FirstOrDefaultAsync(u => u.Email == modelo.Email);
 
-            if (usuario == null || !_passwordService.VerifyPassword(modelo.Password!, usuario.PasswordHash))
+            if (usuario == null || !_passwordService.VerifyPassword(modelo.Password!, usuario.Password))
             {
-                ModelState.AddModelError(string.Empty, "Usuario/email o contraseña incorrectos");
+                ModelState.AddModelError(string.Empty, "Email o contraseña incorrectos");
                 return View(modelo);
             }
 
-            if (!usuario.Activo)
-            {
-                ModelState.AddModelError(string.Empty, "Esta cuenta está inactiva");
-                return View(modelo);
-            }
-
-            // Crear los claims de la sesión
             var claims = new List<Claim>
             {
-                new Claim(ClaimTypes.NameIdentifier, usuario.UsuarioId.ToString()),
-                new Claim(ClaimTypes.Name, usuario.NombreUsuario),
+                new Claim(ClaimTypes.NameIdentifier, usuario.Id.ToString()),
+                new Claim(ClaimTypes.Name, $"{usuario.Nombre} {usuario.Apellido}"),
                 new Claim(ClaimTypes.Email, usuario.Email)
             };
 
@@ -120,15 +107,6 @@ namespace WebApplication1.Controllers
                 new ClaimsPrincipal(claimsIdentity),
                 new AuthenticationProperties { IsPersistent = true });
 
-            // Log de conexión (una de nuestras 5 entidades en uso real)
-            _context.LogsConexion.Add(new LogConexion
-            {
-                UsuarioId = usuario.UsuarioId,
-                Tipo = "Conexion",
-                Fecha = DateTime.Now
-            });
-            await _context.SaveChangesAsync();
-
             return RedirectToAction("Index", "Home");
         }
 
@@ -138,18 +116,6 @@ namespace WebApplication1.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Logout()
         {
-            var usuarioIdStr = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            if (int.TryParse(usuarioIdStr, out int usuarioId))
-            {
-                _context.LogsConexion.Add(new LogConexion
-                {
-                    UsuarioId = usuarioId,
-                    Tipo = "Desconexion",
-                    Fecha = DateTime.Now
-                });
-                await _context.SaveChangesAsync();
-            }
-
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
             return RedirectToAction("Index", "Home");
         }
