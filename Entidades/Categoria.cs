@@ -6,5 +6,5 @@ public class Categoria
 
     public string Nombre { get; set; }
 
-    public ICollection<Publicacion> Publicaciones { get; set; }
+    public ICollection<Publicacion> Publicaciones { get; set; } = new List<Publicacion>();
 }

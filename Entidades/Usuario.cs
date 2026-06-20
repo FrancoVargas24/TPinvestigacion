@@ -20,7 +20,6 @@ public class Usuario
     public int ProvinciaId { get; set; }
     public Provincia Provincia { get; set; }
 
-    public ICollection<Publicacion> Publicaciones { get; set; }
-    public ICollection<Mensaje> Mensajes { get; set; }
-    public ICollection<Oferta> Ofertas { get; set; }
+    public ICollection<Publicacion> Publicaciones { get; set; } = new List<Publicacion>();
+    public ICollection<Mensaje> Mensajes { get; set; } = new List<Mensaje>();
 }
