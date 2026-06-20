@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="Entidad/Entidad.csproj" Id="dd5577d6-7070-4198-a61e-da0b7029844d" />
+  <Project Path="WebApplication1/WebApplication1.csproj" Id="a7633dfc-18d9-40bd-880f-7969b4317b01" />
+</Solution>

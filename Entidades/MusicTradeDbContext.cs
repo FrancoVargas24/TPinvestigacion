@@ -5,17 +5,9 @@ namespace Entidades;
 
 public class MusicTradeDbContext : DbContext
 {
-
-    public MusicTradeDbContext() { }
-
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-    {
-        optionsBuilder.UseSqlServer("Server=localhost,1433;Database=MusicTradeDB;User Id=sa;Password=Password123!;TrustServerCertificate=True;");
-        //optionsBuilder.UseSqlServer("Server=localhost\\SQLEXPRESS;Database=TPPW3ConsorciosDB;User Id=sa;Password=Password123!;Trusted_Connection=True;TrustServerCertificate=True;");
-
-        //optionsBuilder.UseSqlServer("Server=localhost,[Puerto];Database=[nombre_base_datos_no_cambiar];User Id=[usuario];Password=[contrasenia];TrustServerCertificate=True;");
-
-    }
+    // Único constructor: recibe las opciones (con el connection string ya armado)
+    // desde el contenedor de DI de ASP.NET Core (ver Program.cs -> AddDbContext).
+    public MusicTradeDbContext(DbContextOptions<MusicTradeDbContext> options) : base(options) { }
 
 
     public DbSet<Usuario> Usuarios { get; set; }

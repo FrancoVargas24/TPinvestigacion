@@ -13,6 +13,23 @@
             de ASP.NET Core MVC que explora las capacidades de SignalR para construir
             aplicaciones web interactivas y en tiempo real.
         </p>
+        <div class="mt-4">
+            @if (User.Identity != null && User.Identity.IsAuthenticated)
+            {
+                <a asp-controller="Chat" asp-action="Index" class="btn btn-light btn-lg px-4">
+                    <i class="bi bi-chat-dots"></i> Ir al Chat
+                </a>
+            }
+            else
+            {
+                <a asp-controller="Cuenta" asp-action="Registro" class="btn btn-light btn-lg px-4 me-2">
+                    Crear cuenta
+                </a>
+                <a asp-controller="Cuenta" asp-action="Login" class="btn btn-outline-light btn-lg px-4">
+                    Iniciar sesión
+                </a>
+            }
+        </div>
     </div>
 </section>
 
