@@ -15,8 +15,13 @@ public class MusicTradeDbContext : DbContext
     public DbSet<Categoria> Categorias { get; set; }
     public DbSet<Publicacion> Publicaciones { get; set; }
     public DbSet<Mensaje> Mensajes { get; set; }
-    public DbSet<Oferta> Ofertas { get; set; }
 
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    {
+        optionsBuilder.UseSqlServer("Server=localhost,1433;Database=MusicTradeDB;User Id=sa;Password=Password123!;TrustServerCertificate=True;");
+        //optionsBuilder.UseSqlServer("Server=localhost\\SQLEXPRESS;Database=MusicTradeDB;User Id=sa;Password=Password123!;Trusted_Connection=True;TrustServerCertificate=True;");
+
+    }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -32,22 +37,17 @@ public class MusicTradeDbContext : DbContext
             .HasForeignKey(m => m.UsuarioId)
             .OnDelete(DeleteBehavior.NoAction);
 
+
+        modelBuilder.Entity<Mensaje>()
+            .HasOne(m => m.Destinatario)
+            .WithMany()
+            .HasForeignKey(m => m.DestinatarioId)
+            .OnDelete(DeleteBehavior.NoAction);
+
         modelBuilder.Entity<Mensaje>()
             .HasOne(m => m.Publicacion)
             .WithMany(p => p.Mensajes)
             .HasForeignKey(m => m.PublicacionId)
-            .OnDelete(DeleteBehavior.NoAction);
-
-        modelBuilder.Entity<Oferta>()
-            .HasOne(o => o.Usuario)
-            .WithMany(u => u.Ofertas)
-            .HasForeignKey(o => o.UsuarioId)
-            .OnDelete(DeleteBehavior.NoAction);
-
-        modelBuilder.Entity<Oferta>()
-            .HasOne(o => o.Publicacion)
-            .WithMany(p => p.Ofertas)
-            .HasForeignKey(o => o.PublicacionId)
             .OnDelete(DeleteBehavior.NoAction);
 
         modelBuilder.Entity<Publicacion>()
@@ -62,7 +62,15 @@ public class MusicTradeDbContext : DbContext
             .HasForeignKey(p => p.CategoriaId)
             .OnDelete(DeleteBehavior.NoAction);
 
+        modelBuilder.Entity<Usuario>()
+            .HasOne(u => u.Provincia)
+            .WithMany(p => p.Usuarios)
+            .HasForeignKey(u => u.ProvinciaId)
+            .OnDelete(DeleteBehavior.NoAction);
+
         ProvinciasSeed.Seed(modelBuilder);
+
+        
 
     }
 }

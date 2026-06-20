@@ -17,7 +17,77 @@ appsettings.*.Local.json
 
 # Logs
 *.log
+# =========================
+# Build
+# =========================
+bin/
+obj/
 
-# Sistema operativo
+# =========================
+# Visual Studio / VS Code
+# =========================
+.vs/
+.vscode/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# =========================
+# Rider / JetBrains
+# =========================
+.idea/
+
+
+# =========================
+# ASP.NET Core
+# =========================
+appsettings.Development.json
+wwwroot/lib/
+
+# =========================
+# NuGet
+# =========================
+*.nupkg
+packages/
+.nuget/
+
+# =========================
+# Publish
+# =========================
+publish/
+out/
+
+# =========================
+# Temp files
+# =========================
+tmp/
+temp/
+
+# =========================
+# Secrets
+# =========================
+secrets.json
+
+# =========================
+# Node
+# =========================
+node_modules/
+
+# =========================
+# Coverage / Testing
+# =========================
+TestResults/
+coverage/
+
+# =========================
+# SQL Server LocalDB
+# =========================
+*.mdf
+*.ldf
+
+# =========================
+# OS Files
+# =========================
 .DS_Store
 Thumbs.db
