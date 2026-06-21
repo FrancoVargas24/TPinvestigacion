@@ -1,0 +1,65 @@
+﻿@model Entidades.Publicacion
+@using Microsoft.AspNetCore.Mvc.Rendering
+
+@{
+    ViewData["Title"] = "Editar Publicación";
+}
+
+<h1>Editar Publicación</h1>
+
+<div class="row">
+    <div class="col-md-6">
+        <form asp-action="Edit" method="post" enctype="multipart/form-data">
+            <input type="hidden" asp-for="Id" />
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="mb-3">
+                <label asp-for="Titulo" class="form-label"></label>
+                <input asp-for="Titulo" class="form-control" />
+                <span asp-validation-for="Titulo" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="Descripcion" class="form-label"></label>
+                <textarea asp-for="Descripcion" class="form-control" rows="4"></textarea>
+                <span asp-validation-for="Descripcion" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Imagen actual</label>
+                <div>
+                    <img src="@Model.ImagenUrl" alt="@Model.Titulo" style="max-width: 200px;" class="img-thumbnail" />
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Reemplazar imagen (opcional)</label>
+                <input type="file" name="imagenArchivo" class="form-control" accept="image/*" />
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="CategoriaId" class="form-label">Categoría</label>
+                <select asp-for="CategoriaId" class="form-select"
+                        asp-items="@(new SelectList(ViewBag.Categorias, "Id", "Nombre", Model.CategoriaId))">
+                </select>
+                <span asp-validation-for="CategoriaId" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="FechaCierre" class="form-label">Fecha de cierre de la subasta</label>
+                <input asp-for="FechaCierre" type="date" class="form-control"
+                       min="@DateTime.Now.AddDays(1).ToString("yyyy-MM-dd")" />
+                <span asp-validation-for="FechaCierre" class="text-danger"></span>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Guardar cambios</button>
+            <a asp-action="Details" asp-route-id="@Model.Id" class="btn btn-secondary">Cancelar</a>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

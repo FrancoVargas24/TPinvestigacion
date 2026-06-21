@@ -1,6 +1,7 @@
 using Entidades;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
+using Servicios;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,6 +13,10 @@ builder.Services.AddDbContext<MusicTradeDbContext>(options =>
 
 // Servicio de hashing de contraseñas (login propio, sin Identity)
 builder.Services.AddScoped<PasswordService>();
+
+builder.Services.AddScoped<IPublicacionService, PublicacionService>();
+builder.Services.AddScoped<ICategoriaService, CategoriaService>();
+
 
 // Autenticación basada en cookies
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
