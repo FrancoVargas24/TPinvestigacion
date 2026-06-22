@@ -53,6 +53,9 @@ namespace WebApplication1.Controllers
                 ModelState.AddModelError("", "Tenés que subir una imagen");
             }
 
+            ModelState.Remove("ImagenUrl");
+            ModelState.Remove("Usuario");
+            ModelState.Remove("Categoria");
             if (!ModelState.IsValid)
             {
                 ViewBag.Categorias = await _categoriaService.ObtenerTodasAsync();
@@ -112,7 +115,9 @@ namespace WebApplication1.Controllers
             IFormFile? imagenArchivo)
         {
             if (id != publicacionForm.Id) return BadRequest();
-
+            ModelState.Remove("ImagenUrl");
+            ModelState.Remove("Usuario");
+            ModelState.Remove("Categoria");
             if (!ModelState.IsValid)
             {
                 ViewBag.Categorias = await _categoriaService.ObtenerTodasAsync();
@@ -128,7 +133,7 @@ namespace WebApplication1.Controllers
             var exito = await _publicacionService.EditarAsync(id, ObtenerUsuarioIdLogueado(), publicacionForm, nuevaImagenUrl);
             if (!exito) return Forbid();
 
-            return RedirectToAction(nameof(Details), new { id });
+            return RedirectToAction(nameof(Detalle), new { id });
         }
 
     }
