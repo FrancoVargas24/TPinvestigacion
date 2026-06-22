@@ -16,12 +16,7 @@ public class MusicTradeDbContext : DbContext
     public DbSet<Publicacion> Publicaciones { get; set; }
     public DbSet<Mensaje> Mensajes { get; set; }
 
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-    {
-        optionsBuilder.UseSqlServer("Server=localhost,1433;Database=MusicTradeDB;User Id=sa;Password=Password123!;TrustServerCertificate=True;");
-        //optionsBuilder.UseSqlServer("Server=localhost\\SQLEXPRESS;Database=MusicTradeDB;User Id=sa;Password=Password123!;Trusted_Connection=True;TrustServerCertificate=True;");
-
-    }
+    
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
