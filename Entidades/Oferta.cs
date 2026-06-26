@@ -1,7 +1,4 @@
 ﻿using Enums;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Entidades
 {
@@ -12,6 +9,10 @@ namespace Entidades
         public decimal? Monto { get; set; }
 
         public string? ProductoOfrecido { get; set; }
+
+        public string Mensaje { get; set; }
+
+        public DateTime FechaCreacion { get; set; }
 
         public EstadoOferta Estado { get; set; }
 

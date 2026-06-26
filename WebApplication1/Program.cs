@@ -2,11 +2,13 @@ using Entidades;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
 using Servicios;
+using WebApplication1.Hubs;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // services SIEMPRE antes de Build
 builder.Services.AddControllersWithViews();
+builder.Services.AddSignalR();
 
 builder.Services.AddDbContext<MusicTradeDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
@@ -55,6 +57,9 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapStaticAssets();
+
+app.MapHub<OfertaHub>("/hubs/oferta");
+app.MapHub<ChatHub>("/hubs/chat");
 
 app.MapControllerRoute(
     name: "default",

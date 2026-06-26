@@ -37,6 +37,8 @@ public class ConversacionService : IConversacionService
     {
         return await _context.Conversaciones
             .Include(c => c.Publicacion)
+            .Include(c => c.Vendedor)
+            .Include(c => c.Comprador)
             .Include(c => c.Mensajes)
                 .ThenInclude(m => m.Usuario)
             .FirstOrDefaultAsync(c => c.Id == conversacionId);

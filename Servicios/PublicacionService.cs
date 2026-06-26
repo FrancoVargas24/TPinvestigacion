@@ -36,7 +36,9 @@ namespace Servicios
         {
             return await _context.Publicaciones
                 .Include(p => p.Usuario)
-                .Include(p => p.Categoria)         
+                .Include(p => p.Categoria)
+                .Include(p => p.Ofertas)
+                    .ThenInclude(o => o.Usuario)
                 .FirstOrDefaultAsync(p => p.Id == id);
         }
 

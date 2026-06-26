@@ -1,7 +1,9 @@
 ﻿@model IEnumerable<Entidades.Conversacion>
+@using System.Security.Claims
 
 @{
     ViewData["Title"] = "Mis conversaciones";
+    var usuarioId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier)!);
 }
 
 <section class="hero-section text-white text-center d-flex align-items-center justify-content-center">
@@ -64,7 +66,14 @@
                                     </h5>
 
                                     <small class="text-muted">
-                                        Conversación sobre la publicación
+                                        @if (conversacion.VendedorId == usuarioId)
+                                        {
+                                            <span>Con <strong>@conversacion.Comprador?.Nombre @conversacion.Comprador?.Apellido</strong> (comprador)</span>
+                                        }
+                                        else
+                                        {
+                                            <span>Con <strong>@conversacion.Vendedor?.Nombre @conversacion.Vendedor?.Apellido</strong> (vendedor)</span>
+                                        }
                                     </small>
 
                                 </div>

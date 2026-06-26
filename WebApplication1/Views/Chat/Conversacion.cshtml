@@ -1,4 +1,6 @@
 ﻿@using System.Security.Claims
+@using System.Collections.Generic
+@using System.Text.Json
 
 @model Entidades.Conversacion
 
@@ -6,6 +8,19 @@
     ViewData["Title"] = "Chat";
 
     var usuarioLogueado = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)!.Value);
+    var coloresUsuario = new Dictionary<string, string>();
+    var paleta = new[] { "#6f42c1", "#fd7e14", "#20c997", "#dc3545", "#0dcaf0", "#198754", "#d63384", "#0d6efd", "#6610f2", "#e83e8c" };
+    var idxColor = 0;
+    foreach (var m in Model.Mensajes.OrderBy(m => m.FechaEnvio))
+    {
+        var key = m.UsuarioId.ToString();
+        if (m.UsuarioId != usuarioLogueado && !coloresUsuario.ContainsKey(key))
+        {
+            coloresUsuario[key] = paleta[idxColor % paleta.Length];
+            idxColor++;
+        }
+    }
+    var coloresJson = JsonSerializer.Serialize(coloresUsuario);
 }
 
 <section class="hero-section text-white text-center d-flex align-items-center justify-content-center">
@@ -23,15 +38,19 @@
         </h1>
 
         <p class="lead">
-
-            Conversación privada
-
+            @if (Model.VendedorId == usuarioLogueado)
+            {
+                <span>Conversación con <strong>@Model.Comprador?.Nombre @Model.Comprador?.Apellido</strong> (comprador)</span>
+            }
+            else
+            {
+                <span>Conversación con <strong>@Model.Vendedor?.Nombre @Model.Vendedor?.Apellido</strong> (vendedor)</span>
+            }
         </p>
 
     </div>
 
 </section>
-
 
 <section class="container py-5">
 
@@ -40,23 +59,21 @@
         <div class="card-header">
 
             <h5>
-
-                <i class="bi bi-person-circle"></i>
-
-                Chat
-
+                <i class="bi bi-person-circle"></i> Chat
             </h5>
 
         </div>
 
-        <div class="card-body"
-             style="height:450px;overflow-y:auto;">
+        <div class="card-body" id="chatMessages" style="height:450px;overflow-y:auto;"
+             data-conversacion-id="@Model.Id"
+             data-usuario-logado="@usuarioLogueado"
+             data-colores="@Html.Raw(coloresJson)">
 
             @foreach (var mensaje in Model.Mensajes.OrderBy(m => m.FechaEnvio))
             {
                 if (mensaje.UsuarioId == usuarioLogueado)
                 {
-                    <div class="d-flex justify-content-end mb-3">
+                    <div class="d-flex justify-content-end mb-3 mensaje-item" data-usuario="@mensaje.UsuarioId" data-conversacion="@mensaje.ConversacionId">
 
                         <div class="bg-primary text-white rounded p-3">
 
@@ -80,9 +97,10 @@
                 }
                 else
                 {
-                    <div class="d-flex justify-content-start mb-3">
+                    var color = coloresUsuario.GetValueOrDefault(mensaje.UsuarioId.ToString(), "#6c757d");
+                    <div class="d-flex justify-content-start mb-3 mensaje-item" data-usuario="@mensaje.UsuarioId" data-conversacion="@mensaje.ConversacionId">
 
-                        <div class="bg-light rounded p-3 border">
+                        <div class="rounded p-3 text-white" style="background-color:@color;">
 
                             <strong>
 
@@ -96,7 +114,7 @@
 
                             <br />
 
-                            <small>
+                            <small class="text-white-50">
 
                                 @mensaje.FechaEnvio.ToString("dd/MM HH:mm")
 
@@ -112,34 +130,24 @@
 
         <div class="card-footer">
 
-            <form asp-action="EnviarMensaje" method="post">
+            <div class="input-group">
 
-                <input type="hidden"
-                       name="conversacionId"
-                       value="@Model.Id" />
+                <input type="text" id="chatInput" class="form-control" placeholder="Escribí un mensaje..." maxlength="1000" autocomplete="off" />
 
-                <div class="input-group">
+                <button class="btn btn-primary" id="btnEnviarChat">
 
-                    <input type="text"
-                           name="texto"
-                           class="form-control"
-                           placeholder="Escribí un mensaje..."
-                           autocomplete="off" />
+                    <i class="bi bi-send"></i> Enviar
 
-                    <button class="btn btn-primary">
+                </button>
 
-                        <i class="bi bi-send"></i>
-
-                        Enviar
-
-                    </button>
-
-                </div>
-
-            </form>
+            </div>
 
         </div>
 
     </div>
 
 </section>
+
+@section Scripts {
+    <script src="~/js/chat.js" asp-append-version="true"></script>
+}

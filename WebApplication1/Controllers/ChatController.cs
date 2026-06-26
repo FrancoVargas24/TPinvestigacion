@@ -62,6 +62,17 @@ public class ChatController : Controller
             new { id = conversacion.Id });
     }
 
+    public async Task<IActionResult> AceptarOferta(int publicacionId, int ofertanteId)
+    {
+        var conversacion =
+            await _conversacionService.CrearConversacionAsync(
+                publicacionId,
+                ofertanteId);
+
+        return RedirectToAction(nameof(Conversacion),
+            new { id = conversacion.Id });
+    }
+
     private int ObtenerUsuarioIdLogueado()
     {
         return int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier)!);
