@@ -1,0 +1,145 @@
+﻿@using System.Security.Claims
+
+@model Entidades.Conversacion
+
+@{
+    ViewData["Title"] = "Chat";
+
+    var usuarioLogueado = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)!.Value);
+}
+
+<section class="hero-section text-white text-center d-flex align-items-center justify-content-center">
+
+    <div class="hero-overlay"></div>
+
+    <div class="container position-relative py-5">
+
+        <i class="bi bi-chat-heart display-1 mb-3"></i>
+
+        <h1 class="display-5 fw-bold">
+
+            @Model.Publicacion.Titulo
+
+        </h1>
+
+        <p class="lead">
+
+            Conversación privada
+
+        </p>
+
+    </div>
+
+</section>
+
+
+<section class="container py-5">
+
+    <div class="card shadow">
+
+        <div class="card-header">
+
+            <h5>
+
+                <i class="bi bi-person-circle"></i>
+
+                Chat
+
+            </h5>
+
+        </div>
+
+        <div class="card-body"
+             style="height:450px;overflow-y:auto;">
+
+            @foreach (var mensaje in Model.Mensajes.OrderBy(m => m.FechaEnvio))
+            {
+                if (mensaje.UsuarioId == usuarioLogueado)
+                {
+                    <div class="d-flex justify-content-end mb-3">
+
+                        <div class="bg-primary text-white rounded p-3">
+
+                            <strong>Vos</strong>
+
+                            <br />
+
+                            @mensaje.Texto
+
+                            <br />
+
+                            <small>
+
+                                @mensaje.FechaEnvio.ToString("dd/MM HH:mm")
+
+                            </small>
+
+                        </div>
+
+                    </div>
+                }
+                else
+                {
+                    <div class="d-flex justify-content-start mb-3">
+
+                        <div class="bg-light rounded p-3 border">
+
+                            <strong>
+
+                                @mensaje.Usuario.Nombre
+
+                            </strong>
+
+                            <br />
+
+                            @mensaje.Texto
+
+                            <br />
+
+                            <small>
+
+                                @mensaje.FechaEnvio.ToString("dd/MM HH:mm")
+
+                            </small>
+
+                        </div>
+
+                    </div>
+                }
+            }
+
+        </div>
+
+        <div class="card-footer">
+
+            <form asp-action="EnviarMensaje" method="post">
+
+                <input type="hidden"
+                       name="conversacionId"
+                       value="@Model.Id" />
+
+                <div class="input-group">
+
+                    <input type="text"
+                           name="texto"
+                           class="form-control"
+                           placeholder="Escribí un mensaje..."
+                           autocomplete="off" />
+
+                    <button class="btn btn-primary">
+
+                        <i class="bi bi-send"></i>
+
+                        Enviar
+
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</section>

@@ -7,65 +7,192 @@
 }
 
 <div class="container mt-4">
+
     <div class="row mb-3">
         <div class="col-12">
-            <a asp-action="Index" class="btn btn-outline-secondary btn-sm">Volver al listado</a>
+            <a asp-action="Index" class="btn btn-outline-secondary btn-sm">
+                <i class="bi bi-arrow-left"></i> Volver al listado
+            </a>
         </div>
     </div>
 
     <div class="row">
-        <!-- Foto -->
-        <div class="col-md-5">
-            <div class="card shadow-sm">
-                <img src="@Model.ImagenUrl" alt="@Model.Titulo" class="card-img-top" style="max-height: 400px; object-fit: cover;" />
+
+        <!-- Imagen -->
+        <div class="col-lg-5 mb-4">
+
+            <div class="card shadow-sm border-0">
+
+                <img src="@Model.ImagenUrl"
+                     class="card-img-top"
+                     alt="@Model.Titulo"
+                     style="height:420px;object-fit:cover;" />
+
             </div>
+
         </div>
 
-        <!-- Info de la publicación -->
-        <div class="col-md-7">
-            <div class="card h-100">
+        <!-- Información -->
+        <div class="col-lg-7">
+
+            <div class="card shadow-sm border-0 h-100">
+
                 <div class="card-body">
-                    <div class="d-flex justify-content-between align-items-center mb-2">
-                        <span class="badge bg-info text-dark">@Model.Categoria?.Nombre</span>
-                        <span class="badge bg-secondary">@Model.Estado</span>
+
+                    <div class="d-flex justify-content-between">
+
+                        <span class="badge bg-primary">
+                            @Model.Categoria?.Nombre
+                        </span>
+
+                        <span class="badge bg-secondary">
+                            @Model.Estado
+                        </span>
+
                     </div>
 
-                    <h2 class="card-title mt-2">@Model.Titulo</h2>
+                    <h2 class="mt-3 fw-bold">
+                        @Model.Titulo
+                    </h2>
+
                     <hr />
 
                     <h5>Descripción</h5>
-                    <p class="card-text">@Model.Descripcion</p>
 
-                    <div class="alert alert-warning mt-4 d-inline-block">
-                        <strong>Cierra el:</strong> @Model.FechaCierre.ToString("dd/MM/yyyy")
+                    <p class="text-muted">
+                        @Model.Descripcion
+                    </p>
+
+                    <div class="alert alert-warning mt-4">
+
+                        <strong>
+
+                            <i class="bi bi-clock"></i>
+
+                            Cierra el:
+
+                        </strong>
+
+                        @Model.FechaCierre.ToString("dd/MM/yyyy")
+
                     </div>
 
-                    <p class="mt-3 text-muted">
-                        Publicado por: <strong>@Model.Usuario?.Nombre @Model.Usuario?.Apellido</strong>
-                    </p>
+                    <div class="mt-4">
+
+                        <h6 class="text-muted">
+
+                            Publicado por
+
+                        </h6>
+
+                        <h5>
+
+                            <i class="bi bi-person-circle"></i>
+
+                            @Model.Usuario?.Nombre @Model.Usuario?.Apellido
+
+                        </h5>
+
+                    </div>
+
+                    <hr />
 
                     @if (esPropietario)
                     {
-                        <div class="mt-4">
-                            <a asp-action="Editar" asp-route-id="@Model.Id" class="btn btn-primary">Editar publicación</a>
+                        <div class="d-grid">
+
+                            <a asp-action="Editar"
+                                   asp-route-id="@Model.Id"
+                                   class="btn btn-primary">
+
+                                <i class="bi bi-pencil-square"></i>
+
+                                Editar publicación
+
+                            </a>
+
                         </div>
                     }
+                    else
+                    {
+                        <div class="d-grid gap-2">
+
+                            <a asp-controller="Chat"
+                                   asp-action="CrearConversacion"
+                                   asp-route-publicacionId="@Model.Id"
+                                   class="btn btn-success btn-lg">
+
+                                <i class="bi bi-chat-dots"></i>
+
+                                Contactar vendedor
+
+                            </a>
+
+                        </div>
+                    }
+
                 </div>
+
             </div>
+
         </div>
+
     </div>
 
-    <hr class="my-5" />
+    <div class="row mt-5">
 
-    <!-- Chat -->
-    <div class="row">
         <div class="col-12">
-            <h4>Chat de la subasta</h4>
-            <div class="card mt-2">
-                <div id="chat-container" class="card-body bg-light" style="min-height: 300px;">
-                    <p class="text-muted text-center mt-5">Acá va a ir el chat xd</p>
+
+            <div class="card border-0 shadow-sm">
+
+                <div class="card-header bg-white">
+
+                    <h4 class="mb-0">
+
+                        <i class="bi bi-info-circle"></i>
+
+                        Información de la publicación
+
+                    </h4>
+
                 </div>
+
+                <div class="card-body">
+
+                    <div class="row">
+
+                        <div class="col-md-4">
+
+                            <strong>Estado</strong>
+
+                            <p>@Model.Estado</p>
+
+                        </div>
+
+                        <div class="col-md-4">
+
+                            <strong>Categoría</strong>
+
+                            <p>@Model.Categoria?.Nombre</p>
+
+                        </div>
+
+                        <div class="col-md-4">
+
+                            <strong>Fecha de cierre</strong>
+
+                            <p>@Model.FechaCierre.ToString("dd/MM/yyyy")</p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
             </div>
+
         </div>
+
     </div>
+
 </div>
