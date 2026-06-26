@@ -1,3 +1,4 @@
+using Microsoft.VisualBasic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -22,4 +23,10 @@ public class Usuario
 
     public ICollection<Publicacion> Publicaciones { get; set; } = new List<Publicacion>();
     public ICollection<Mensaje> Mensajes { get; set; } = new List<Mensaje>();
+
+    public ICollection<Conversacion> ConversacionesComoVendedor { get; set; }
+    = new List<Conversacion>();
+
+    public ICollection<Conversacion> ConversacionesComoComprador { get; set; }
+        = new List<Conversacion>();
 }

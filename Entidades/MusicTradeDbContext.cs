@@ -5,44 +5,31 @@ namespace Entidades;
 
 public class MusicTradeDbContext : DbContext
 {
-    // Único constructor: recibe las opciones (con el connection string ya armado)
-    // desde el contenedor de DI de ASP.NET Core (ver Program.cs -> AddDbContext).
-    public MusicTradeDbContext(DbContextOptions<MusicTradeDbContext> options) : base(options) { }
-
+    public MusicTradeDbContext(DbContextOptions<MusicTradeDbContext> options)
+        : base(options)
+    {
+    }
 
     public DbSet<Usuario> Usuarios { get; set; }
     public DbSet<Provincia> Provincias { get; set; }
     public DbSet<Categoria> Categorias { get; set; }
     public DbSet<Publicacion> Publicaciones { get; set; }
     public DbSet<Mensaje> Mensajes { get; set; }
-
-    
+    public DbSet<Oferta> Ofertas { get; set; }
+    public DbSet<Conversacion> Conversaciones { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
 
         modelBuilder.Entity<Usuario>()
-        .HasIndex(u => u.Email)
-        .IsUnique();
+            .HasIndex(u => u.Email)
+            .IsUnique();
 
-        modelBuilder.Entity<Mensaje>()
-            .HasOne(m => m.Usuario)
-            .WithMany(u => u.Mensajes)
-            .HasForeignKey(m => m.UsuarioId)
-            .OnDelete(DeleteBehavior.NoAction);
-
-
-        modelBuilder.Entity<Mensaje>()
-            .HasOne(m => m.Destinatario)
-            .WithMany()
-            .HasForeignKey(m => m.DestinatarioId)
-            .OnDelete(DeleteBehavior.NoAction);
-
-        modelBuilder.Entity<Mensaje>()
-            .HasOne(m => m.Publicacion)
-            .WithMany(p => p.Mensajes)
-            .HasForeignKey(m => m.PublicacionId)
+        modelBuilder.Entity<Usuario>()
+            .HasOne(u => u.Provincia)
+            .WithMany(p => p.Usuarios)
+            .HasForeignKey(u => u.ProvinciaId)
             .OnDelete(DeleteBehavior.NoAction);
 
         modelBuilder.Entity<Publicacion>()
@@ -57,15 +44,48 @@ public class MusicTradeDbContext : DbContext
             .HasForeignKey(p => p.CategoriaId)
             .OnDelete(DeleteBehavior.NoAction);
 
-        modelBuilder.Entity<Usuario>()
-            .HasOne(u => u.Provincia)
-            .WithMany(p => p.Usuarios)
-            .HasForeignKey(u => u.ProvinciaId)
+        modelBuilder.Entity<Oferta>()
+            .HasOne(o => o.Usuario)
+            .WithMany()
+            .HasForeignKey(o => o.UsuarioId)
+            .OnDelete(DeleteBehavior.NoAction);
+
+        modelBuilder.Entity<Oferta>()
+            .HasOne(o => o.Publicacion)
+            .WithMany(p => p.Ofertas)
+            .HasForeignKey(o => o.PublicacionId)
+            .OnDelete(DeleteBehavior.NoAction);
+
+        modelBuilder.Entity<Conversacion>()
+            .HasOne(c => c.Publicacion)
+            .WithMany(p => p.Conversaciones)
+            .HasForeignKey(c => c.PublicacionId)
+            .OnDelete(DeleteBehavior.NoAction);
+
+        modelBuilder.Entity<Conversacion>()
+            .HasOne(c => c.Vendedor)
+            .WithMany(u => u.ConversacionesComoVendedor)
+            .HasForeignKey(c => c.VendedorId)
+            .OnDelete(DeleteBehavior.NoAction);
+
+        modelBuilder.Entity<Conversacion>()
+            .HasOne(c => c.Comprador)
+            .WithMany(u => u.ConversacionesComoComprador)
+            .HasForeignKey(c => c.CompradorId)
+            .OnDelete(DeleteBehavior.NoAction);
+
+        modelBuilder.Entity<Mensaje>()
+            .HasOne(m => m.Usuario)
+            .WithMany(u => u.Mensajes)
+            .HasForeignKey(m => m.UsuarioId)
+            .OnDelete(DeleteBehavior.NoAction);
+
+        modelBuilder.Entity<Mensaje>()
+            .HasOne(m => m.Conversacion)
+            .WithMany(c => c.Mensajes)
+            .HasForeignKey(m => m.ConversacionId)
             .OnDelete(DeleteBehavior.NoAction);
 
         ProvinciasSeed.Seed(modelBuilder);
-
-        
-
     }
 }

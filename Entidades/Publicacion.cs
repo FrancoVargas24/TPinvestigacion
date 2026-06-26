@@ -1,8 +1,9 @@
 ﻿namespace Entidades;
 
+using Enums;
+using Microsoft.VisualBasic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using Enums;
 
 public class Publicacion
 {
@@ -31,5 +32,9 @@ public class Publicacion
     public int CategoriaId { get; set; }
     public Categoria Categoria { get; set; }
 
-    public ICollection<Mensaje> Mensajes { get; set; } = new List<Mensaje>();
+    public ICollection<Oferta> Ofertas { get; set; }
+    = new List<Oferta>();
+
+    public ICollection<Conversacion> Conversaciones { get; set; }
+        = new List<Conversacion>();
 }
