@@ -18,6 +18,7 @@ builder.Services.AddScoped<PasswordService>();
 
 builder.Services.AddScoped<IPublicacionService, PublicacionService>();
 builder.Services.AddScoped<IConversacionService, ConversacionService>();
+builder.Services.AddScoped<IUsuarioService, UsuarioService>();
 
 // Autenticación basada en cookies
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
