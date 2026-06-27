@@ -28,7 +28,7 @@ namespace Servicios
         {
             return await _context.Publicaciones
                 .Include(p => p.Usuario)
-                .Where(p => p.Estado == EstadoPublicacion.Activa)
+                .Where(p => p.Estado == EstadoPublicacion.Activa || p.Estado == EstadoPublicacion.Finalizada)
                 .ToListAsync();
         }
 

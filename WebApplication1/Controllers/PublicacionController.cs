@@ -88,10 +88,12 @@ namespace WebApplication1.Controllers
             if (publicacion.UsuarioId != ObtenerUsuarioIdLogueado())
                 return Forbid();
 
+            if (publicacion.Estado == EstadoPublicacion.Finalizada)
+                return Forbid();
+
             ViewBag.Categorias = ObtenerCategoriasParaVista();
             return View(publicacion);
         }
-
         [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -102,6 +104,12 @@ namespace WebApplication1.Controllers
             IFormFile? imagenArchivo)
         {
             if (id != publicacionForm.Id) return BadRequest();
+
+            var publicacion = await _publicacionService.ObtenerPorIdAsync(id);
+            if (publicacion == null) return NotFound();
+
+            if (publicacion.Estado == EstadoPublicacion.Finalizada)
+                return Forbid();
 
             if (categoria == 0)
                 ModelState.AddModelError("Categoria", "Debes seleccionar una categoría");
