@@ -17,7 +17,6 @@ builder.Services.AddDbContext<MusicTradeDbContext>(options =>
 builder.Services.AddScoped<PasswordService>();
 
 builder.Services.AddScoped<IPublicacionService, PublicacionService>();
-builder.Services.AddScoped<ICategoriaService, CategoriaService>();
 builder.Services.AddScoped<IConversacionService, ConversacionService>();
 
 // Autenticación basada en cookies

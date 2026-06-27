@@ -40,10 +40,15 @@
                             </div>
 
                             <div class="col-md-6 mb-3">
-                                <label asp-for="CategoriaId" class="form-label fw-bold">Categoría</label>
-                                <select asp-for="CategoriaId" class="form-select" asp-items="@(new SelectList(ViewBag.Categorias, "Id", "Nombre", Model.CategoriaId))">
+                                <label class="form-label fw-bold">Categoría</label>
+                                <select name="categoria" class="form-select" required>
+                                    <option value="0">-- Seleccioná una categoría --</option>
+                                    @foreach (var cat in ViewBag.Categorias)
+                                    {
+                                        <option value="@cat.Value">@cat.Text</option>
+                                    }
                                 </select>
-                                <span asp-validation-for="CategoriaId" class="text-danger"></span>
+                                <span class="text-danger">@Html.ValidationMessage("Categoria")</span>
                             </div>
                         </div>
 

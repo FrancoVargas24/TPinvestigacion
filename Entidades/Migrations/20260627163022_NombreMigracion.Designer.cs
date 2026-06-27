@@ -4,6 +4,7 @@ using Entidades;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Entidades.Migrations
 {
     [DbContext(typeof(MusicTradeDbContext))]
-    partial class MusicTradeDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260627163022_NombreMigracion")]
+    partial class NombreMigracion
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,6 +24,23 @@ namespace Entidades.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+
+            modelBuilder.Entity("Entidades.Categoria", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Nombre")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Categoria");
+                });
 
             modelBuilder.Entity("Entidades.Conversacion", b =>
                 {
@@ -271,7 +291,7 @@ namespace Entidades.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("Categoria")
+                    b.Property<int>("CategoriaId")
                         .HasColumnType("int");
 
                     b.Property<string>("Descripcion")
@@ -299,6 +319,8 @@ namespace Entidades.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CategoriaId");
 
                     b.HasIndex("UsuarioId");
 
@@ -423,11 +445,19 @@ namespace Entidades.Migrations
 
             modelBuilder.Entity("Entidades.Publicacion", b =>
                 {
+                    b.HasOne("Entidades.Categoria", "Categoria")
+                        .WithMany("Publicaciones")
+                        .HasForeignKey("CategoriaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("Entidades.Usuario", "Usuario")
                         .WithMany("Publicaciones")
                         .HasForeignKey("UsuarioId")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
+
+                    b.Navigation("Categoria");
 
                     b.Navigation("Usuario");
                 });
@@ -441,6 +471,11 @@ namespace Entidades.Migrations
                         .IsRequired();
 
                     b.Navigation("Provincia");
+                });
+
+            modelBuilder.Entity("Entidades.Categoria", b =>
+                {
+                    b.Navigation("Publicaciones");
                 });
 
             modelBuilder.Entity("Entidades.Conversacion", b =>

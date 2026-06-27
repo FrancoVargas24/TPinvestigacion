@@ -23,14 +23,12 @@ public class Publicacion
 
     public EstadoPublicacion Estado { get; set; }
 
+    [Required]
+    public Categoria Categoria { get; set; }
 
     [ForeignKey(nameof(Usuario))]
     public int UsuarioId { get; set; }
     public Usuario Usuario { get; set; }
-
-    [ForeignKey(nameof(Categoria))]
-    public int CategoriaId { get; set; }
-    public Categoria Categoria { get; set; }
 
     public ICollection<Oferta> Ofertas { get; set; }
     = new List<Oferta>();

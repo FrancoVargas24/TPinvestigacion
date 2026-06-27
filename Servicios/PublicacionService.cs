@@ -12,6 +12,7 @@ namespace Servicios
         Task<bool> EditarAsync(int id, int usuarioIdLogueado, Publicacion datosEditados, string? nuevaImagenUrl);
 
         Task CambiarEstadoAsync(int id, EstadoPublicacion nuevoEstado);
+        Task<bool> CerrarAsync(int id, int usuarioIdLogueado);
     }
 
     public class PublicacionService : IPublicacionService
@@ -27,7 +28,6 @@ namespace Servicios
         {
             return await _context.Publicaciones
                 .Include(p => p.Usuario)
-                .Include(p => p.Categoria)
                 .Where(p => p.Estado == EstadoPublicacion.Activa)
                 .ToListAsync();
         }
@@ -36,7 +36,6 @@ namespace Servicios
         {
             return await _context.Publicaciones
                 .Include(p => p.Usuario)
-                .Include(p => p.Categoria)
                 .Include(p => p.Ofertas)
                     .ThenInclude(o => o.Usuario)
                 .FirstOrDefaultAsync(p => p.Id == id);
@@ -68,13 +67,24 @@ namespace Servicios
             publicacion.Titulo = datosEditados.Titulo;
             publicacion.Descripcion = datosEditados.Descripcion;
             publicacion.FechaCierre = datosEditados.FechaCierre;
-            publicacion.CategoriaId = datosEditados.CategoriaId;
+            publicacion.Categoria = datosEditados.Categoria;
 
             if (!string.IsNullOrEmpty(nuevaImagenUrl))
             {
                 publicacion.ImagenUrl = nuevaImagenUrl;
             }
 
+            await _context.SaveChangesAsync();
+            return true;
+        }
+
+        public async Task<bool> CerrarAsync(int id, int usuarioIdLogueado)
+        {
+            var publicacion = await _context.Publicaciones.FindAsync(id);
+            if (publicacion == null) return false;
+            if (publicacion.UsuarioId != usuarioIdLogueado) return false;
+
+            publicacion.Estado = EstadoPublicacion.Finalizada;
             await _context.SaveChangesAsync();
             return true;
         }
