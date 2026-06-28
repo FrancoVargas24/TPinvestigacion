@@ -56,11 +56,25 @@
 
     <div class="card shadow">
 
-        <div class="card-header">
+        <div class="card-header d-flex justify-content-between align-items-center">
 
-            <h5>
+            <h5 class="mb-0">
                 <i class="bi bi-person-circle"></i> Chat
+                @if (Model.Cerrada)
+                {
+                    <span class="badge bg-secondary ms-2">Cerrada</span>
+                }
             </h5>
+
+            @if (Model.VendedorId == usuarioLogueado && !Model.Cerrada)
+            {
+                <form asp-action="Cerrar" method="post" onsubmit="return confirm('¿Cerrar esta conversación?');">
+                    <input type="hidden" name="id" value="@Model.Id" />
+                    <button type="submit" class="btn btn-outline-danger btn-sm">
+                        <i class="bi bi-lock"></i> Cerrar chat
+                    </button>
+                </form>
+            }
 
         </div>
 
@@ -130,17 +144,26 @@
 
         <div class="card-footer">
 
-            <div class="input-group">
+            @if (Model.Cerrada)
+            {
+                <p class="text-muted text-center mb-0 py-2">
+                    <i class="bi bi-lock"></i> Esta conversación está cerrada.
+                </p>
+            }
+            else
+            {
+                <div class="input-group">
 
-                <input type="text" id="chatInput" class="form-control" placeholder="Escribí un mensaje..." maxlength="1000" autocomplete="off" />
+                    <input type="text" id="chatInput" class="form-control" placeholder="Escribí un mensaje..." maxlength="1000" autocomplete="off" />
 
-                <button class="btn btn-primary" id="btnEnviarChat">
+                    <button class="btn btn-primary" id="btnEnviarChat">
 
-                    <i class="bi bi-send"></i> Enviar
+                        <i class="bi bi-send"></i> Enviar
 
-                </button>
+                    </button>
 
-            </div>
+                </div>
+            }
 
         </div>
 

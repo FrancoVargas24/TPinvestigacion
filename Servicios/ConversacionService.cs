@@ -12,6 +12,8 @@ public interface IConversacionService
     Task EnviarMensajeAsync(int conversacionId, int usuarioId, string texto);
 
     Task<Conversacion> CrearConversacionAsync(int publicacionId, int compradorId);
+
+    Task<bool> CerrarConversacionAsync(int conversacionId, int usuarioId);
 }
 
 public class ConversacionService : IConversacionService
@@ -86,5 +88,18 @@ public class ConversacionService : IConversacionService
         await _context.SaveChangesAsync();
 
         return conversacion;
+    }
+
+    public async Task<bool> CerrarConversacionAsync(int conversacionId, int usuarioId)
+    {
+        var conversacion = await _context.Conversaciones
+            .FirstOrDefaultAsync(c => c.Id == conversacionId);
+
+        if (conversacion == null || conversacion.VendedorId != usuarioId || conversacion.Cerrada)
+            return false;
+
+        conversacion.Cerrada = true;
+        await _context.SaveChangesAsync();
+        return true;
     }
 }

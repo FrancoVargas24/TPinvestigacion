@@ -26,6 +26,11 @@ public class ChatHub : Hub
         if (string.IsNullOrWhiteSpace(texto))
             return;
 
+        var conversacion = await _db.Conversaciones
+            .FirstOrDefaultAsync(c => c.Id == conversacionId);
+        if (conversacion == null || conversacion.Cerrada)
+            return;
+
         var usuarioId = int.Parse(Context.User.FindFirstValue(ClaimTypes.NameIdentifier)!);
         var usuario = await _db.Usuarios.FindAsync(usuarioId);
         if (usuario == null)
@@ -51,11 +56,6 @@ public class ChatHub : Hub
             mensaje.FechaEnvio,
             mensaje.ConversacionId
         });
-
-        var conversacion = await _db.Conversaciones
-            .AsNoTracking()
-            .FirstOrDefaultAsync(c => c.Id == conversacionId);
-        if (conversacion == null) return;
 
         var otroId = conversacion.VendedorId == usuarioId
             ? conversacion.CompradorId

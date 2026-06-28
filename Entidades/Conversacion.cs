@@ -19,6 +19,8 @@ namespace Entidades
         public int CompradorId { get; set; }
         public Usuario Comprador { get; set; }
 
+        public bool Cerrada { get; set; }
+
         // opcional, para saber desde qué oferta nació
         public int? OfertaId { get; set; }
         public Oferta? Oferta { get; set; }

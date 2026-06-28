@@ -2,24 +2,22 @@
     var notifBadge = document.getElementById("notifBadge");
     var notifList = document.getElementById("notifList");
     var sinNotif = document.getElementById("sinNotif");
-    var chatBadge = document.getElementById("chatBadge");
     var notifDropdown = document.getElementById("notifDropdown");
-    var chatDropdown = document.getElementById("chatDropdownMenu");
 
     var conexion = new signalR.HubConnectionBuilder()
         .withUrl("/hubs/chat")
         .withAutomaticReconnect()
         .build();
 
-    function ocultarSiCero(badge, valor) {
-        if (!badge) return;
-        badge.textContent = valor;
-        badge.style.display = valor > 0 ? "inline" : "none";
+    function ocultarSiCero(valor) {
+        if (!notifBadge) return;
+        notifBadge.textContent = valor;
+        notifBadge.style.display = valor > 0 ? "inline" : "none";
     }
 
     function agregarNotificacion(data) {
         if (sinNotif) sinNotif.remove();
-        ocultarSiCero(notifBadge, (parseInt(notifBadge.textContent) || 0) + 1);
+        ocultarSiCero((parseInt(notifBadge.textContent) || 0) + 1);
 
         var a = document.createElement("a");
         a.href = data.url || "#";
@@ -45,13 +43,7 @@
 
     if (notifDropdown) {
         notifDropdown.addEventListener("show.bs.dropdown", function () {
-            ocultarSiCero(notifBadge, 0);
-        });
-    }
-
-    if (chatDropdown) {
-        chatDropdown.addEventListener("show.bs.dropdown", function () {
-            ocultarSiCero(chatBadge, 0);
+            ocultarSiCero(0);
         });
     }
 })();

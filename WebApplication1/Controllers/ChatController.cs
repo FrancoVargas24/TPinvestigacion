@@ -62,6 +62,19 @@ public class ChatController : Controller
             new { id = conversacion.Id });
     }
 
+    [HttpPost]
+    public async Task<IActionResult> Cerrar(int id)
+    {
+        var result = await _conversacionService.CerrarConversacionAsync(
+            id, ObtenerUsuarioIdLogueado());
+
+        if (!result)
+            return NotFound();
+
+        TempData["MensajeExito"] = "Conversación cerrada.";
+        return RedirectToAction(nameof(Conversacion), new { id });
+    }
+
     public async Task<IActionResult> AceptarOferta(int publicacionId, int ofertanteId)
     {
         var conversacion =
