@@ -9,7 +9,7 @@ public interface IConversacionService
 
     Task<Conversacion?> ObtenerConversacionAsync(int conversacionId);
 
-    Task EnviarMensajeAsync(int conversacionId, int usuarioId, string texto);
+    Task EnviarMensajeAsync(int conversacionId, int usuarioId, string texto, string? archivoUrl = null);
 
     Task<Conversacion> CrearConversacionAsync(int publicacionId, int compradorId);
 
@@ -46,13 +46,14 @@ public class ConversacionService : IConversacionService
             .FirstOrDefaultAsync(c => c.Id == conversacionId);
     }
 
-    public async Task EnviarMensajeAsync(int conversacionId, int usuarioId, string texto)
+    public async Task EnviarMensajeAsync(int conversacionId, int usuarioId, string texto, string? archivoUrl = null)
     {
         var mensaje = new Mensaje
         {
             ConversacionId = conversacionId,
             UsuarioId = usuarioId,
             Texto = texto,
+            ArchivoUrl = archivoUrl,
             FechaEnvio = DateTime.Now
         };
 

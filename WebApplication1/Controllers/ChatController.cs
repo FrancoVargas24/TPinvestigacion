@@ -86,6 +86,36 @@ public class ChatController : Controller
             new { id = conversacion.Id });
     }
 
+    [HttpPost]
+    public async Task<IActionResult> SubirArchivo(IFormFile archivo)
+    {
+        if (archivo == null || archivo.Length == 0)
+            return Json(new { ok = false, error = "Archivo vacío." });
+
+        var extension = Path.GetExtension(archivo.FileName).ToLowerInvariant();
+        var permitidas = new[] { ".jpg", ".jpeg", ".png", ".gif", ".webp", ".mp4", ".webm", ".mov" };
+        if (!permitidas.Contains(extension))
+            return Json(new { ok = false, error = "Tipo de archivo no permitido." });
+
+        var maxSize = 50L * 1024 * 1024;
+        if (archivo.Length > maxSize)
+            return Json(new { ok = false, error = "El archivo supera los 50 MB." });
+
+        var dir = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "uploads", "chat");
+        Directory.CreateDirectory(dir);
+
+        var nombre = $"{Guid.NewGuid()}{extension}";
+        var ruta = Path.Combine(dir, nombre);
+
+        await using (var stream = new FileStream(ruta, FileMode.Create))
+        {
+            await archivo.CopyToAsync(stream);
+        }
+
+        var url = $"/uploads/chat/{nombre}";
+        return Json(new { ok = true, url });
+    }
+
     private int ObtenerUsuarioIdLogueado()
     {
         return int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier)!);

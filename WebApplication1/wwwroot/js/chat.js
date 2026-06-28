@@ -32,12 +32,25 @@
         return d.innerHTML;
     }
 
-    var conexion = new signalR.HubConnectionBuilder()
-        .withUrl("/hubs/chat")
-        .withAutomaticReconnect()
-        .build();
+    function esImagen(url) {
+        return /\.(jpg|jpeg|png|gif|webp)$/i.test(url);
+    }
 
-    conexion.on("RecibirMensaje", function (msg) {
+    function esVideo(url) {
+        return /\.(mp4|webm|mov)$/i.test(url);
+    }
+
+    function renderArchivo(url) {
+        if (esImagen(url)) {
+            return '<img src="' + url + '" class="img-fluid rounded mt-1" style="max-height:300px;" />';
+        }
+        if (esVideo(url)) {
+            return '<video src="' + url + '" class="w-100 rounded mt-1" controls style="max-height:300px;"></video>';
+        }
+        return '';
+    }
+
+    function agregarMensaje(msg) {
         var div = document.createElement("div");
         var esPropio = msg.usuarioId === usuarioLogueado;
 
@@ -46,24 +59,39 @@
 
         var fecha = new Date(msg.fechaEnvio);
         var hora = fecha.toLocaleTimeString("es-AR", { hour: "2-digit", minute: "2-digit" });
+        var tieneTexto = msg.texto && msg.texto.trim() !== "";
+        var tieneArchivo = msg.archivoUrl && msg.archivoUrl.trim() !== "";
+        var archivoHtml = tieneArchivo ? renderArchivo(msg.archivoUrl) : "";
+        var textoHtml = tieneTexto ? '<div class="mb-1">' + escapeHtml(msg.texto) + '</div>' : "";
 
         if (esPropio) {
             div.innerHTML = '<div class="bg-primary text-white rounded-3 py-2 px-3" style="max-width:75%;">'
                 + '<div class="d-flex justify-content-between align-items-center gap-2 mb-1">'
                 + '<small class="fw-bold opacity-75">Vos</small></div>'
-                + '<div class="mb-1">' + escapeHtml(msg.texto) + '</div>'
+                + textoHtml
+                + archivoHtml
                 + '<div class="text-end"><small class="opacity-50">' + hora + "</small></div></div>";
         } else {
             var color = colorParaUsuario(msg.usuarioId);
             div.innerHTML = '<div class="rounded-3 py-2 px-3 text-white" style="max-width:75%;background-color:' + color + ';">'
                 + '<div class="d-flex justify-content-between align-items-center gap-2 mb-1">'
                 + '<small class="fw-bold opacity-75">' + escapeHtml(msg.usuarioNombre) + "</small></div>"
-                + '<div class="mb-1">' + escapeHtml(msg.texto) + '</div>'
+                + textoHtml
+                + archivoHtml
                 + '<div class="text-end"><small class="opacity-50">' + hora + "</small></div></div>";
         }
 
         contenedor.appendChild(div);
         contenedor.scrollTop = contenedor.scrollHeight;
+    }
+
+    var conexion = new signalR.HubConnectionBuilder()
+        .withUrl("/hubs/chat")
+        .withAutomaticReconnect()
+        .build();
+
+    conexion.on("RecibirMensaje", function (msg) {
+        agregarMensaje(msg);
     });
 
     conexion.start().then(function () {
@@ -75,14 +103,18 @@
     var input = document.getElementById("chatInput");
     var btn = document.getElementById("btnEnviarChat");
 
+    var archivoSubidoUrl = null;
+
     function enviar() {
         var texto = input.value.trim();
-        if (texto === "") return;
+        var url = archivoSubidoUrl;
+        if (texto === "" && !url) return;
 
         btn.disabled = true;
-        conexion.invoke("EnviarMensaje", conversacionId, texto)
+        conexion.invoke("EnviarMensaje", conversacionId, texto, url)
             .then(function () {
                 input.value = "";
+                archivoSubidoUrl = null;
                 input.focus();
             })
             .catch(function (err) {
@@ -103,6 +135,63 @@
                 e.preventDefault();
                 enviar();
             }
+        });
+    }
+
+    var btnEmoji = document.getElementById("btnEmoji");
+    var emojiPicker = document.getElementById("emojiPicker");
+    if (btnEmoji && emojiPicker) {
+        btnEmoji.addEventListener("click", function () {
+            emojiPicker.style.display = emojiPicker.style.display === "none" ? "block" : "none";
+        });
+        emojiPicker.querySelectorAll(".emoji-btn").forEach(function (el) {
+            el.addEventListener("click", function () {
+                input.value += this.textContent;
+                input.focus();
+            });
+        });
+        document.addEventListener("click", function (e) {
+            if (!btnEmoji.contains(e.target) && !emojiPicker.contains(e.target)) {
+                emojiPicker.style.display = "none";
+            }
+        });
+    }
+
+    var fileInput = document.getElementById("fileInput");
+    if (fileInput) {
+        fileInput.addEventListener("change", function () {
+            var file = fileInput.files[0];
+            if (!file) return;
+
+            var form = new FormData();
+            form.append("archivo", file);
+
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", "/Chat/SubirArchivo", true);
+            xhr.onload = function () {
+                if (xhr.status === 200) {
+                    try {
+                        var resp = JSON.parse(xhr.responseText);
+                        if (resp.ok) {
+                            archivoSubidoUrl = resp.url;
+                            input.placeholder = "Archivo listo. Enviá o agregá texto...";
+                            input.focus();
+                        } else {
+                            alert(resp.error || "Error al subir archivo.");
+                        }
+                    } catch (e) {
+                        alert("Error al procesar la respuesta.");
+                    }
+                } else {
+                    alert("Error al subir archivo.");
+                }
+                fileInput.value = "";
+            };
+            xhr.onerror = function () {
+                alert("Error de conexión al subir archivo.");
+                fileInput.value = "";
+            };
+            xhr.send(form);
         });
     }
 })();

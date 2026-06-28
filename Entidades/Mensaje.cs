@@ -9,6 +9,8 @@ public class Mensaje
 
     public string Texto { get; set; }
 
+    public string? ArchivoUrl { get; set; }
+
     public DateTime FechaEnvio { get; set; }
 
     public int UsuarioId { get; set; }
