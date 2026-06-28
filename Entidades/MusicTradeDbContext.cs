@@ -12,7 +12,6 @@ public class MusicTradeDbContext : DbContext
 
     public DbSet<Usuario> Usuarios { get; set; }
     public DbSet<Provincia> Provincias { get; set; }
-    public DbSet<Categoria> Categorias { get; set; }
     public DbSet<Publicacion> Publicaciones { get; set; }
     public DbSet<Mensaje> Mensajes { get; set; }
     public DbSet<Oferta> Ofertas { get; set; }
@@ -36,12 +35,6 @@ public class MusicTradeDbContext : DbContext
             .HasOne(p => p.Usuario)
             .WithMany(u => u.Publicaciones)
             .HasForeignKey(p => p.UsuarioId)
-            .OnDelete(DeleteBehavior.NoAction);
-
-        modelBuilder.Entity<Publicacion>()
-            .HasOne(p => p.Categoria)
-            .WithMany(c => c.Publicaciones)
-            .HasForeignKey(p => p.CategoriaId)
             .OnDelete(DeleteBehavior.NoAction);
 
         modelBuilder.Entity<Oferta>()
