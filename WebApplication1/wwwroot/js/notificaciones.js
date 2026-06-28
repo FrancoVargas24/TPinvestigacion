@@ -2,7 +2,7 @@
     var notifBadge = document.getElementById("notifBadge");
     var notifList = document.getElementById("notifList");
     var sinNotif = document.getElementById("sinNotif");
-    var notifDropdown = document.getElementById("notifDropdown");
+    var notifContainer = document.getElementById("notifDropdownContainer");
 
     var conexion = new signalR.HubConnectionBuilder()
         .withUrl("/hubs/chat")
@@ -41,8 +41,8 @@
         console.error("Error notif SignalR:", err.toString());
     });
 
-    if (notifDropdown) {
-        notifDropdown.addEventListener("show.bs.dropdown", function () {
+    if (notifContainer) {
+        notifContainer.addEventListener("show.bs.dropdown", function () {
             ocultarSiCero(0);
         });
     }

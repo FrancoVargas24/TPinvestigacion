@@ -41,23 +41,25 @@
         var div = document.createElement("div");
         var esPropio = msg.usuarioId === usuarioLogueado;
 
-        div.className = (esPropio ? "d-flex justify-content-end" : "d-flex justify-content-start") + " mb-3 mensaje-item";
+        div.className = (esPropio ? "d-flex justify-content-end" : "d-flex justify-content-start") + " mb-2 mensaje-item";
         div.setAttribute("data-usuario", msg.usuarioId);
 
         var fecha = new Date(msg.fechaEnvio);
-        var fechaStr = fecha.toLocaleDateString("es-AR") + " " + fecha.toLocaleTimeString("es-AR", { hour: "2-digit", minute: "2-digit" });
+        var hora = fecha.toLocaleTimeString("es-AR", { hour: "2-digit", minute: "2-digit" });
 
         if (esPropio) {
-            div.innerHTML = '<div class="bg-primary text-white rounded p-3">'
-                + "<strong>Vos</strong><br />"
-                + escapeHtml(msg.texto) + "<br />"
-                + "<small>" + fechaStr + "</small></div>";
+            div.innerHTML = '<div class="bg-primary text-white rounded-3 py-2 px-3" style="max-width:75%;">'
+                + '<div class="d-flex justify-content-between align-items-center gap-2 mb-1">'
+                + '<small class="fw-bold opacity-75">Vos</small></div>'
+                + '<div class="mb-1">' + escapeHtml(msg.texto) + '</div>'
+                + '<div class="text-end"><small class="opacity-50">' + hora + "</small></div></div>";
         } else {
             var color = colorParaUsuario(msg.usuarioId);
-            div.innerHTML = '<div class="rounded p-3 text-white" style="background-color:' + color + ';">'
-                + "<strong>" + escapeHtml(msg.usuarioNombre) + "</strong><br />"
-                + escapeHtml(msg.texto) + "<br />"
-                + '<small class="text-white-50">' + fechaStr + "</small></div>";
+            div.innerHTML = '<div class="rounded-3 py-2 px-3 text-white" style="max-width:75%;background-color:' + color + ';">'
+                + '<div class="d-flex justify-content-between align-items-center gap-2 mb-1">'
+                + '<small class="fw-bold opacity-75">' + escapeHtml(msg.usuarioNombre) + "</small></div>"
+                + '<div class="mb-1">' + escapeHtml(msg.texto) + '</div>'
+                + '<div class="text-end"><small class="opacity-50">' + hora + "</small></div></div>";
         }
 
         contenedor.appendChild(div);
