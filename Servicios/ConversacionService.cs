@@ -9,9 +9,11 @@ public interface IConversacionService
 
     Task<Conversacion?> ObtenerConversacionAsync(int conversacionId);
 
-    Task EnviarMensajeAsync(int conversacionId, int usuarioId, string texto);
+    Task EnviarMensajeAsync(int conversacionId, int usuarioId, string texto, string? archivoUrl = null);
 
     Task<Conversacion> CrearConversacionAsync(int publicacionId, int compradorId);
+
+    Task<bool> CerrarConversacionAsync(int conversacionId, int usuarioId);
 }
 
 public class ConversacionService : IConversacionService
@@ -44,13 +46,14 @@ public class ConversacionService : IConversacionService
             .FirstOrDefaultAsync(c => c.Id == conversacionId);
     }
 
-    public async Task EnviarMensajeAsync(int conversacionId, int usuarioId, string texto)
+    public async Task EnviarMensajeAsync(int conversacionId, int usuarioId, string texto, string? archivoUrl = null)
     {
         var mensaje = new Mensaje
         {
             ConversacionId = conversacionId,
             UsuarioId = usuarioId,
             Texto = texto,
+            ArchivoUrl = archivoUrl,
             FechaEnvio = DateTime.Now
         };
 
@@ -86,5 +89,18 @@ public class ConversacionService : IConversacionService
         await _context.SaveChangesAsync();
 
         return conversacion;
+    }
+
+    public async Task<bool> CerrarConversacionAsync(int conversacionId, int usuarioId)
+    {
+        var conversacion = await _context.Conversaciones
+            .FirstOrDefaultAsync(c => c.Id == conversacionId);
+
+        if (conversacion == null || conversacion.VendedorId != usuarioId || conversacion.Cerrada)
+            return false;
+
+        conversacion.Cerrada = true;
+        await _context.SaveChangesAsync();
+        return true;
     }
 }

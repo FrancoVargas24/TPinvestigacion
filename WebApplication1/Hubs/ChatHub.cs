@@ -21,9 +21,14 @@ public class ChatHub : Hub
         await Groups.AddToGroupAsync(Context.ConnectionId, $"conversacion-{conversacionId}");
     }
 
-    public async Task EnviarMensaje(int conversacionId, string texto)
+    public async Task EnviarMensaje(int conversacionId, string texto, string? archivoUrl = null)
     {
-        if (string.IsNullOrWhiteSpace(texto))
+        if (string.IsNullOrWhiteSpace(texto) && string.IsNullOrWhiteSpace(archivoUrl))
+            return;
+
+        var conversacion = await _db.Conversaciones
+            .FirstOrDefaultAsync(c => c.Id == conversacionId);
+        if (conversacion == null || conversacion.Cerrada)
             return;
 
         var usuarioId = int.Parse(Context.User.FindFirstValue(ClaimTypes.NameIdentifier)!);
@@ -36,6 +41,7 @@ public class ChatHub : Hub
             ConversacionId = conversacionId,
             UsuarioId = usuarioId,
             Texto = texto,
+            ArchivoUrl = archivoUrl,
             FechaEnvio = DateTime.Now
         };
 
@@ -49,13 +55,9 @@ public class ChatHub : Hub
             UsuarioNombre = $"{usuario.Nombre} {usuario.Apellido}",
             mensaje.Texto,
             mensaje.FechaEnvio,
-            mensaje.ConversacionId
+            mensaje.ConversacionId,
+            mensaje.ArchivoUrl
         });
-
-        var conversacion = await _db.Conversaciones
-            .AsNoTracking()
-            .FirstOrDefaultAsync(c => c.Id == conversacionId);
-        if (conversacion == null) return;
 
         var otroId = conversacion.VendedorId == usuarioId
             ? conversacion.CompradorId

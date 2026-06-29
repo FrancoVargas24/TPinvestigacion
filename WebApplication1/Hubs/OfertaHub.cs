@@ -62,7 +62,7 @@ public class OfertaHub : Hub
             await Clients.Group($"user-{publicacion.UsuarioId}").SendAsync("NuevaNotificacion", new
             {
                 Tipo = "oferta",
-                Mensaje = $"{usuario.Nombre} hizo una oferta en \"{publicacion.Titulo}\"",
+                Mensaje = $"{usuario.Nombre} {usuario.Apellido} comentó la publicación \"{publicacion.Titulo}\"",
                 Url = $"/Publicacion/Detalle/{publicacionId}"
             });
         }
