@@ -4,11 +4,6 @@
     var sinNotif = document.getElementById("sinNotif");
     var notifContainer = document.getElementById("notifDropdownContainer");
 
-    var conexion = new signalR.HubConnectionBuilder()
-        .withUrl("/hubs/chat")
-        .withAutomaticReconnect()
-        .build();
-
     function ocultarSiCero(valor) {
         if (!notifBadge) return;
         notifBadge.textContent = valor;
@@ -33,13 +28,23 @@
         notifList.insertBefore(a, notifList.firstChild);
     }
 
-    conexion.on("NuevaNotificacion", function (data) {
-        agregarNotificacion(data);
-    });
+    function conectarHub(url) {
+        var conexion = new signalR.HubConnectionBuilder()
+            .withUrl(url)
+            .withAutomaticReconnect()
+            .build();
 
-    conexion.start().catch(function (err) {
-        console.error("Error notif SignalR:", err.toString());
-    });
+        conexion.on("NuevaNotificacion", function (data) {
+            agregarNotificacion(data);
+        });
+
+        conexion.start().catch(function (err) {
+            console.error("Error SignalR (" + url + "):", err.toString());
+        });
+    }
+
+    conectarHub("/hubs/chat");
+    conectarHub("/hubs/oferta");
 
     if (notifContainer) {
         notifContainer.addEventListener("show.bs.dropdown", function () {

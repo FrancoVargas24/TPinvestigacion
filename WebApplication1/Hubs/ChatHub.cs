@@ -21,8 +21,9 @@ public class ChatHub : Hub
         await Groups.AddToGroupAsync(Context.ConnectionId, $"conversacion-{conversacionId}");
     }
 
-    public async Task EnviarMensaje(int conversacionId, string texto, string? archivoUrl = null)
+    public async Task EnviarMensaje(int conversacionId, string? texto, string? archivoUrl = null)
     {
+        texto = texto?.Trim();
         if (string.IsNullOrWhiteSpace(texto) && string.IsNullOrWhiteSpace(archivoUrl))
             return;
 
@@ -31,7 +32,10 @@ public class ChatHub : Hub
         if (conversacion == null || conversacion.Cerrada)
             return;
 
-        var usuarioId = int.Parse(Context.User.FindFirstValue(ClaimTypes.NameIdentifier)!);
+        var idClaim = Context.User.FindFirstValue(ClaimTypes.NameIdentifier);
+        if (idClaim == null) return;
+        var usuarioId = int.Parse(idClaim);
+
         var usuario = await _db.Usuarios.FindAsync(usuarioId);
         if (usuario == null)
             return;
@@ -40,7 +44,7 @@ public class ChatHub : Hub
         {
             ConversacionId = conversacionId,
             UsuarioId = usuarioId,
-            Texto = texto,
+            Texto = texto ?? "",
             ArchivoUrl = archivoUrl,
             FechaEnvio = DateTime.Now
         };
