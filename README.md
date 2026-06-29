@@ -1,31 +1,34 @@
 # Trabajo Practico N° 2 : Investigación + práctica
 ## Tema: SignalR
-## 🎵 Plataforma de Intercambio y Subasta de Instrumentos Musicales
+## 🎵 Marketplace orientado a la compra, venta e intercambio de productos y servicios relacionados con la música.
 
 ## Objetivo del Proyecto
 
-Desarrollar una plataforma web de intercambio y subasta de instrumentos musicales que permita a los usuarios publicar instrumentos, participar en subastas y comunicarse mediante un chat en tiempo real.
+El sistema permite publicar instrumentos musicales, equipos de audio, clases de música, shows y otros servicios. Los usuarios interesados pueden realizar ofertas mediante comentarios y, si el propietario de la publicación acepta alguna de ellas, puede iniciar un chat privado en tiempo real para concretar la negociación.
 
-La aplicación utiliza **SignalR** para brindar comunicación y notificaciones instantáneas entre los participantes, permitiendo realizar consultas y negociar directamente durante el proceso de la subasta.
-
-Como característica principal, el sistema incorpora un mecanismo de **detección automática de ofertas** dentro del chat. Cuando un usuario envía un mensaje utilizando las palabras clave:
-
-- **DINERO** *monto*
-- **PERMUTO** *monto + descripción del instrumento u objeto*
-
-el sistema interpreta automáticamente el contenido del mensaje, identifica el tipo de oferta y **crea el registro de la oferta de forma automática**, sin necesidad de que el usuario complete un formulario adicional. Esto hace que el proceso de ofertar sea más rápido, intuitivo y natural para los participantes.
-
-## Funcionalidades principales
+## Caracteristicas principales
 
 - Registro e inicio de sesión de usuarios.
-- Publicación de instrumentos musicales.
-- Chat en tiempo real mediante SignalR.
-- Envío y recepción de notificaciones instantáneas.
-- Detección automática de ofertas a partir de las palabras clave **DINERO** y **PERMUTO**.
-- Creación automática de ofertas detectadas en el chat.
-- Registro del historial de ofertas realizadas.
-- Seguimiento del estado de las subastas y determinación de la oferta ganadora.
+- Publicación de productos y servicios.
+- Sistema de ofertas mediante comentarios utilizando SignalR.
+- Chat privado en tiempo real utilizando SignalR.
+- Notificaciones en tiempo real.
+- Cierre de publicaciones una vez concretada la negociación.
+- Persistencia de datos mediante Entity Framework Core.
 
+---
+
+## Flujo de funcionamiento
+
+1. Un usuario publica un producto o servicio.
+2. Otros usuarios realizan ofertas mediante comentarios.
+3. El propietario analiza las ofertas recibidas.
+4. Si una oferta resulta de su interés, inicia un chat privado.
+5. Ambas partes negocian en tiempo real mediante SignalR.
+6. Si llegan a un acuerdo, el propietario cierra la publicación.
+7. La publicación deja de aceptar nuevas ofertas.
+
+---
 ## Tecnologías utilizadas
 
 - ASP.NET Core MVC
@@ -36,3 +39,13 @@ el sistema interpreta automáticamente el contenido del mensaje, identifica el t
 - CSS3
 - Bootstrap
 - JavaScript# TPinvestigacion
+  
+---
+## Integrantes del equipo n° 1:
+- Cristian Chazarreta
+- Elias Tucci
+- Franco Vargas
+- Jesica Salva
+- Martin Boga
+- Mauricio Galvan
+
