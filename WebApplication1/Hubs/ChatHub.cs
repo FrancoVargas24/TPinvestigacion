@@ -23,7 +23,7 @@ public class ChatHub : Hub
 
     public async Task EnviarMensaje(int conversacionId, string texto, string? archivoUrl = null)
     {
-        if (string.IsNullOrWhiteSpace(texto))
+        if (string.IsNullOrWhiteSpace(texto) && string.IsNullOrWhiteSpace(archivoUrl))
             return;
 
         var conversacion = await _db.Conversaciones

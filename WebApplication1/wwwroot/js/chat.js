@@ -115,6 +115,8 @@
             .then(function () {
                 input.value = "";
                 archivoSubidoUrl = null;
+                previewContainer.className = "d-none";
+                input.placeholder = "Escribí un mensaje...";
                 input.focus();
             })
             .catch(function (err) {
@@ -158,6 +160,50 @@
     }
 
     var fileInput = document.getElementById("fileInput");
+    var previewContainer = document.createElement("div");
+    previewContainer.className = "d-none align-items-center gap-2 bg-light rounded p-1 px-2 mt-1 small";
+    previewContainer.id = "filePreview";
+    if (fileInput) {
+        fileInput.parentElement.insertAdjacentElement("afterend", previewContainer);
+    }
+
+    function mostrarPreview(file, url) {
+        var esImg = /\.(jpg|jpeg|png|gif|webp)$/i.test(file.name);
+        var esVid = /\.(mp4|webm|mov)$/i.test(file.name);
+
+        previewContainer.className = "d-flex align-items-center gap-2 bg-light rounded p-1 px-2 mt-1 small";
+        previewContainer.innerHTML = "";
+
+        if (esImg) {
+            var img = document.createElement("img");
+            img.src = url;
+            img.style.width = "32px";
+            img.style.height = "32px";
+            img.className = "rounded object-fit-cover";
+            previewContainer.appendChild(img);
+        } else if (esVid) {
+            var icon = document.createElement("i");
+            icon.className = "bi bi-film fs-5 text-secondary";
+            previewContainer.appendChild(icon);
+        }
+
+        var name = document.createElement("span");
+        name.className = "text-truncate flex-grow-1";
+        name.textContent = file.name;
+        previewContainer.appendChild(name);
+
+        var remove = document.createElement("button");
+        remove.type = "button";
+        remove.className = "btn-close btn-close-sm";
+        remove.setAttribute("aria-label", "Quitar archivo");
+        remove.addEventListener("click", function () {
+            archivoSubidoUrl = null;
+            previewContainer.className = "d-none";
+            input.placeholder = "Escribí un mensaje...";
+        });
+        previewContainer.appendChild(remove);
+    }
+
     if (fileInput) {
         fileInput.addEventListener("change", function () {
             var file = fileInput.files[0];
@@ -174,7 +220,8 @@
                         var resp = JSON.parse(xhr.responseText);
                         if (resp.ok) {
                             archivoSubidoUrl = resp.url;
-                            input.placeholder = "Archivo listo. Enviá o agregá texto...";
+                            mostrarPreview(file, resp.url);
+                            input.placeholder = "Agregá un mensaje o enviá el archivo...";
                             input.focus();
                         } else {
                             alert(resp.error || "Error al subir archivo.");
