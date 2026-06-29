@@ -21,7 +21,7 @@ namespace WebApplication1.Controllers
         private List<object> ObtenerCategoriasParaVista()
         {
             return Enum.GetValues<Categoria>()
-                .Select(c => new { Value = (int)c, Text = c.ToString() })
+                .Select(c => new { Value = (int)c, Text = c.GetDescription() })
                 .Cast<object>()
                 .ToList();
         }
