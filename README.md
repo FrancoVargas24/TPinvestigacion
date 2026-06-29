@@ -38,7 +38,7 @@ El sistema permite publicar instrumentos musicales, equipos de audio, clases de 
 - HTML5
 - CSS3
 - Bootstrap
-- JavaScript# TPinvestigacion
+- JavaScript
   
 ---
 ## Integrantes del equipo n° 1:
