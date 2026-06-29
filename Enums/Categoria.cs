@@ -2,14 +2,17 @@ namespace Enums;
 
 public enum Categoria
 {
-    Electronica = 1,
-    Vehiculos = 2,
-    Inmuebles = 3,
-    Ropa = 4,
-    Hogar = 5,
-    Deportes = 6,
-    Coleccionables = 7,
-    Herramientas = 8,
-    Juguetes = 9,
-    Otros = 10
+Bajos = 1,
+Guitarras = 2,
+Percusión = 3,
+Teclados = 4,
+EquipamientoyAudio = 5,
+Permutas = 6,
+Producción_y_Mezcla = 7,
+Composición_y_Escritura = 8,
+Servicios_de_Sesión_Tracks = 9,
+Clases_y_Tutorías = 10,
+Shows_Giras_en_Vivo = 11,
+Promoción = 12,
+Videoclips = 13,
 }
