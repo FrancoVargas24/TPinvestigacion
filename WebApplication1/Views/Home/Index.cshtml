@@ -1,4 +1,6 @@
-﻿@{
+﻿@model WebApplication1.Models.ViewModels.HomeViewModel
+
+@{
     ViewData["Title"] = "Inicio";
 }
 
@@ -7,17 +9,18 @@
     <div class="hero-overlay"></div>
     <div class="container position-relative py-5">
         <i class="bi bi-broadcast display-1 mb-3"></i>
-        <h1 class="display-4 fw-bold">Comunicación en Tiempo Real con SignalR</h1>
+        <h1 class="display-4 fw-bold">Comprá, Vendé y Permutá Entre Músicos</h1>
         <p class="lead col-lg-8 mx-auto">
-            Chateá en vivo con otros usuarios, sin recargar la página. Un proyecto académico
-            de ASP.NET Core MVC que explora las capacidades de SignalR para construir
-            aplicaciones web interactivas y en tiempo real.
+            Publicá guitarras, bajos, baterías, teclados, equipos de audio,
+            servicios de producción, mezcla, clases, shows y mucho más.
+            Negociá en tiempo real mediante un chat privado impulsado por SignalR,
+            sin salir de la publicación.
         </p>
         <div class="mt-4">
             @if (User.Identity != null && User.Identity.IsAuthenticated)
             {
                 <a asp-controller="Publicacion" asp-action="Index" class="btn btn-light btn-lg px-4 me-2">
-                    <i class="bi bi-grid"></i> Ver publicaciones
+                    <i class="bi bi-grid"></i> Ver Publicaciones
                 </a>
                 <a asp-controller="Chat" asp-action="Index" class="btn btn-outline-light btn-lg px-4">
                     <i class="bi bi-chat-dots"></i> Ir al Chat
@@ -41,66 +44,114 @@
     <div class="row text-center g-4">
         <div class="col-md-4">
             <i class="bi bi-lightning-charge-fill fs-1 text-primary"></i>
-            <h5 class="mt-2">Tiempo real</h5>
-            <p class="text-muted">Los mensajes se entregan al instante usando WebSockets vía SignalR.</p>
+            <h5 class="mt-2">Compras y Permutas</h5>
+            <p class="text-muted">
+                Negociá precios o proponé intercambios directamente con otros músicos
+                mediante un chat privado en tiempo real.
+            </p>
         </div>
         <div class="col-md-4">
             <i class="bi bi-people-fill fs-1 text-primary"></i>
-            <h5 class="mt-2">Salas de chat</h5>
-            <p class="text-muted">Distintos canales para organizar las conversaciones por tema.</p>
+            <h5 class="mt-2">Miles de Publicaciones</h5>
+            <p class="text-muted">
+                Encontrá instrumentos, equipamiento de audio, estudios,
+                clases particulares, sesiones, videoclips y servicios musicales.
+            </p>
         </div>
         <div class="col-md-4">
             <i class="bi bi-shield-lock-fill fs-1 text-primary"></i>
-            <h5 class="mt-2">Acceso seguro</h5>
-            <p class="text-muted">Login propio con contraseñas hasheadas, sin compartir datos sensibles.</p>
+            <h5 class="mt-2">Chat Instántaneo</h5>
+            <p class="text-muted">
+                Gracias a SignalR las conversaciones son inmediatas, permitiendo
+                cerrar acuerdos sin recargar la página.
+            </p>
         </div>
     </div>
 </section>
 
-<!-- TABLA -->
+<!-- ÚLTIMAS PUBLICACIONES -->
 <section class="container pb-5">
-    <div class="card shadow-sm">
-        <div class="card-header bg-white d-flex justify-content-between align-items-center">
-            <h5 class="mb-0"><i class="bi bi-table"></i> Actividad reciente</h5>
-            <span class="badge bg-secondary">Tiempo Real</span>
-        </div>
-        <div class="card-body">
-            <p class="text-muted small mb-3">
-                Esta sección mostrará en el futuro un registro en vivo de conexiones y mensajes
-                (actualmente es un placeholder estático).
-            </p>
-            <div class="table-responsive">
-                <table class="table table-hover align-middle">
-                    <thead class="table-light">
-                        <tr>
-                            <th>Usuario</th>
-                            <th>Evento</th>
-                            <th>Sala</th>
-                            <th>Fecha</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr class="placeholder-glow">
-                            <td><span class="placeholder col-6"></span></td>
-                            <td><span class="placeholder col-8"></span></td>
-                            <td><span class="placeholder col-5"></span></td>
-                            <td><span class="placeholder col-7"></span></td>
-                        </tr>
-                        <tr class="placeholder-glow">
-                            <td><span class="placeholder col-7"></span></td>
-                            <td><span class="placeholder col-6"></span></td>
-                            <td><span class="placeholder col-4"></span></td>
-                            <td><span class="placeholder col-6"></span></td>
-                        </tr>
-                        <tr class="placeholder-glow">
-                            <td><span class="placeholder col-5"></span></td>
-                            <td><span class="placeholder col-7"></span></td>
-                            <td><span class="placeholder col-6"></span></td>
-                            <td><span class="placeholder col-8"></span></td>
-                        </tr>
-                    </tbody>
-                </table>
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h3 class="fw-bold">
+            <i class="bi bi-clock-history"></i>
+            Últimas publicaciones
+        </h3>
+
+        <a asp-controller="Publicacion"
+               asp-action="Index"
+               class="btn btn-outline-primary">
+            Ver todas
+        </a>
+    </div>
+
+    <div class="row g-4">
+
+        @if (Model.UltimasPublicaciones.Any())
+        {
+            @foreach (var item in Model.UltimasPublicaciones)
+            {
+                <div class="col-md-4">
+                    <div class="card h-100 shadow-sm">
+
+                        <img src="@item.ImagenUrl"
+                             class="card-img-top"
+                             alt="@item.Titulo"
+                             style="height:220px; object-fit:cover;">
+
+                        <div class="card-body d-flex flex-column">
+
+                            <span class="badge bg-primary mb-2 align-self-start">
+                                @item.Categoria
+                            </span>
+
+                            <h5 class="card-title">
+                                @item.Titulo
+                            </h5>
+
+                            <p class="card-text text-muted small flex-grow-1">
+                                @(item.Descripcion.Length > 100
+                                    ? item.Descripcion.Substring(0, 100) + "..."
+                                    : item.Descripcion)
+                            </p>
+
+                            <hr />
+
+                            <div class="small text-muted mb-3">
+                                <div>
+                                    <i class="bi bi-person"></i>
+                                    @item.Usuario.Nombre @item.Usuario.Apellido
+                                </div>
+
+                                <div>
+                                    <i class="bi bi-calendar"></i>
+                                    Publicado el @item.FechaCreacion.ToString("dd/MM/yyyy")
+                                </div>
+                            </div>
+
+                            <a asp-controller="Publicacion"
+                                   asp-action="Detalle"
+                                   asp-route-id="@item.Id"
+                                   class="btn btn-primary mt-auto">
+                                Ver publicación
+                            </a>
+
+                        </div>
+
+                    </div>
+                </div>
+            }
+        }
+        else
+        {
+            <div class="col-12">
+                <div class="alert alert-light border text-center">
+                    <i class="bi bi-music-note-list fs-3"></i>
+                    <p class="mb-0 mt-2">
+                        Todavía no hay publicaciones disponibles.
+                    </p>
+                </div>
             </div>
-        </div>
+        }
+
     </div>
 </section>
